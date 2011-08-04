@@ -1,0 +1,27 @@
+{% extends "../../../templates/admin_template.html" %}
+{% block content %}
+
+<h1>Lista de Colegios</h1>
+
+{% if schools %}
+	{% for school in schools %}
+		<div class="schoolDataTitle" id="school{{school.key.id}}">{{school.name}}</div>
+		<div class="schoolDataBody"></div>
+		<div class="schoolDataActions">
+			<a href="/admin/classes/list/{{school.key.id}}">Lista de cursos</a>
+			<a href="/admin/teachers/{{school.key.id}}/list">Lista de profesores</a>
+			<a href="/admin/schools/{{school.key.id}}/weeks">Definir semanas</a>
+		</div>
+		
+	{% endfor %}
+	
+{% else %}
+	<p>No hay colegios en el sistema</p>
+{% endif %}
+<table>
+	
+</table>
+
+{% endblock content %}
+
+_

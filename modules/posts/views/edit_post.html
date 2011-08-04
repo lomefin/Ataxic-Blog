@@ -1,0 +1,37 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+<link type="text/css" href="/css/MooEditable.css" rel="stylesheet" />
+{% endblock css_requires %}
+{% block js_requires%}
+<script type="text/javascript" src="/js/MooEditable.js"></script>
+{%endblock js_requires%}
+{% block js_activities %}
+<script type="text/javascript"> 
+	window.addEvent('domready', function(){
+		$('postContent').mooEditable();
+ 	});
+		</script> 
+{% endblock js_activities %}
+{% block content %}
+
+<h1>Editando {{post.title}}</h1>
+
+<p><small>Publicado el {{post.date_created|date:"d/m/Y"}}</small></p>
+<form action="" method="post">
+<div>
+<textarea style="min-width:700px" rows="20" id="postContent" name="content">
+{{post.text}}
+</textarea>
+</div>
+<input type="submit" value="editar" />
+<h1>Vista preliminar</h1>
+<div>{{post.text}}</div>
+
+</form>
+
+
+<div class="bottomSeparator">
+
+<a href="/posts/">Volver a los artículos</a>
+</div>
+{% endblock content %}

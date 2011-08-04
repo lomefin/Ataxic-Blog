@@ -1,0 +1,59 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+<link type="text/css" href="/css/trivia.css" rel="stylesheet" media="screen" />
+{% endblock %}
+{% block js_activities %}
+<script type="text/javascript">
+	
+	var myFx = new Fx.Tween('bubble_container', {
+    duration: 'long',
+    transition: 'bounce:out',
+    property: 'opacity'}
+	);
+	var kidFx = new Fx.Tween('kid_container', {
+    duration: 'short',
+    transition: 'bounce:in',
+    property: 'opacity'}
+	);
+	var KidFaceFxFast = new Fx.Tween('kid_face', {
+    duration: 200,
+    transition: 'bounce:in',
+    property: 'opacity'}
+	);
+	var KidFaceFxSlow = new Fx.Tween('kid_face', {
+    duration: 500,
+    transition: 'bounce:in',
+    property: 'opacity'}
+	);
+	var ResultTextFx = new Fx.Tween('kid_face', {
+    duration: 300,
+    transition: 'bounce:in',
+    property: 'fontSize'}
+	);
+	var btnFx = new Fx.Tween('btnReady',{
+	duration: 'long',
+	transition: 'bounce:out',
+	property: 'opacity'}
+	);
+	window.addEvent('domready',function(){
+		setTimeout('showKid()',4000);
+		setTimeout('hideKidFace()',3700);
+		setTimeout('showButton()',7700);
+		{% if kid_face %} KidFaceFxSlow.start(0,1);{% endif %}
+		ResultTextFx.start(0,30);
+		});
+	var showKid = function(){kidFx.start(0,1); myFx.start(0,1);};
+	var hideKidFace = function(){KidFaceFxFast.start(1,0);};
+	var showButton = function(){btnFx.start(0,1);};
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Y la respuesta es...</h1>
+<div id="answerContainer">
+	{%if kid_face %}<div id="kid_face"><img src="/img/avatars/{{ kid_face }}.png" height="200px" /> </div>{% endif %}
+	<div id="answer">{% if answer.answered.is_correct %}¡Correcta!{% else %}Incorrecta {% endif %}</div>
+	<div id="feedback">{{ feedback }}</div>
+</div>
+<p class="simulatedButton" id="btnReady" style="opacity:0"><a href="/trivia/">Seguir</a></p>
+{% endblock content %}

@@ -1,0 +1,62 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}<link type="text/css" media="screen" href="/css/avatarChooser.css" rel="stylesheet" />{% endblock %}
+{% block js_requires %}
+<script type="text/javascript">
+	function containerSelected(el)
+	{
+		containers = document.getElementsByClassName('avatarContainerSelected');
+		for(var i=0; i < containers.length; i++)
+		{
+			containers[i].className = "avatarContainer";
+		}
+		el.className = "avatarContainerSelected";
+		var hidden = document.getElementById('selected_avatar');
+		hidden.value = el.id;
+		var submit = document.getElementById('form_submit');
+		submit.style.visibility = "visible";	
+		
+	}
+	function initContainers()
+	{
+		containers = document.getElementsByClassName('avatarContainer');
+		for(var i=0; i < containers.length; i++)
+		{
+			container = containers[i];
+			
+			container.addEvent('click',function()
+			{
+				containerSelected(this);
+			});
+		}
+	}
+	
+	window.addEvent('domready', function() {
+	//aquí las acciones que quieras realizar cuando el DOM esté listo
+		initContainers();
+	}); 
+    
+</script>
+	
+{% endblock %}
+{% block content %}
+
+<h1>Bakán!</h1>
+<p>Ahora, elige un Avatar para que te acompañe!</p>
+
+<form method="post" action="" class="firstTime" id="form_avatar">
+
+	<div id="avatarList">
+		{% for avatar in avatar_list %}
+			<div class="avatarContainer" id="{{avatar.prefix}}">
+				<img src="/img/avatars/{{avatar.sex}}-{{avatar.prefix}}-normal.png" height="300px" />
+			</div>
+		{% endfor %}
+		<input type="hidden" name="selected_avatar" id="selected_avatar" />
+	</div>
+	
+	<div>
+		<input type="submit" value="Listo!" id="form_submit" style="visibility:hidden" />
+	</div>
+</form>
+
+{% endblock content %}

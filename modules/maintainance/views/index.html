@@ -1,0 +1,33 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block content %}
+
+<h1>Noticias</h1>
+{% if logged_user.is_administrator %}
+	<h2>Crear nueva noticia</h2>
+	<form action="" method="post">
+		<table>
+			<tr>
+				<th>Titulo</th>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<tr>
+				<th colspan="2">Cuerpo de la noticia</th>
+			</tr>
+			<tr>
+				<td colspan="2"><textarea cols="50" rows="10" id="newsContent" name="content"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type='submit' value='Crear' /></td>
+			</tr>
+		</table>
+	</form>
+{% endif %}
+{% if not messages %}
+	<p>Bu, no hay noticias.</p>
+{% endif %}
+{% for message in messages %}
+	<h3>{{message.title}}</h3>
+	<div>{{message.text}}</div>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,20 @@
+﻿{% extends "../../../templates/admin_template.html" %}
+{% block content %}
+
+<h1>Agregar Usuario</h1>
+<p>Esta opción es para agregar usuarios <em>no alumnos</em> como por ejemplo profesores</p>
+
+<form action="" method="post">
+	Nombre: <input type="text" name="user_name" /><br />
+	Apellido: <input type="text" name="user_surname" /><br />
+	Colegio:
+	<select name="school">
+	{% for school in schools %}
+		<option value="{{school.key.id}}">{{school.name}}</option>
+	{% endfor %}
+	</select>
+	<input type="submit" value="Crear" />
+	
+</form>
+
+{% endblock content %}

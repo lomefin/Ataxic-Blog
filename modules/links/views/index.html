@@ -1,0 +1,54 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block content %}
+
+<h1>Enlaces</h1>
+<p>Cuando encuentre algún sitio interesante que considere que valga la pena mostrarles, lo dejaré aquí. Noten que los links tienen todos dirección <a href="http://bit.ly" target="leoluartenetLink">bit.ly</a> esto es para evitar direcciones tan largas.</p>
+{% if logged_user.is_administrator %}
+	<h2>Crear nuevo enlace</h2>
+	<form action="" method="post">
+		<table>
+			<tr>
+				<th >URL</th>
+				<td><input text="text" name="url" value="http://"/></td>
+			</tr>
+			<tr>
+				<th>Titulo</th>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<tr>
+				<th>Descripción</th>
+				<td><input type="text" name="description" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type='submit' value='Crear' /></td>
+			</tr>
+		</table>
+	</form>
+{% endif %}
+{% if not links %}
+	<p>Bu, no hay enlaces.</p>
+{% endif %}
+{% for link in links %}
+	<h3><a href="{{link.url}}" target="leoluartenet_linkview">{{link.title}} <img src="/img/ExternalLinkIcon.gif"/></a></h3>
+	<p>{{link.description}}</p>
+	<div></div>
+	<form action="/links/reply/" method="post" style="display:none">
+		<input type="hidden" name="link_key_id" value="{{link.key.id}}"/>
+		<table>
+			<tr>
+				<th>Tu nombre</th>
+				<td><input type="text" name="replier_name" /></td>
+			</tr>
+			<tr>
+				<th>Tu respuesta</th>
+				<td><input type="text" name="reply_text" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type='submit' value='Crear' /></td>
+			</tr>
+		</table>
+	</form>
+{% endfor %}
+{% endblock content %}

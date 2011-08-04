@@ -1,0 +1,39 @@
+{% extends "../../../templates/admin_template.html" %}
+{% block content %}
+
+<h1>Agregar Avatar</h1>
+
+<form method="post" action="add">
+	<h2>Datos del Avatar</h2>
+	<p>Por el momento, no se pueden subir nuevos avatares, solamente registrarlos</p>
+	<table border="0">
+		<tr>
+			<th>Prefijo del Avatar:</th>
+			<td>
+				<input type="text" name="avatar_prefix" />
+				
+			</td>
+		</tr>
+		<tr>
+			<th>Nombre del Avatar:</th>
+			<td>
+				<input type="text" name="avatar_name" />
+			</td>
+		</tr>
+		<tr>
+			<th>Sexo del Avatar:</th>
+			<td>
+				<input type="radio" name="avatar_sex" value="femenino" /> femenino
+				<input type="radio" name="avatar_sex" value="masculino" /> masculino
+			</td>
+		</tr>
+		
+		<tr><td colspan="2"><input type="submit" value="Crear" /></td></tr>
+	</table>
+	
+	
+</form>
+
+
+{% endblock content %}
+

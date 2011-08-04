@@ -1,0 +1,28 @@
+﻿{% extends "../../../templates/support_template.html" %}
+{% block css_requires %}
+<link type="text/css" media="screen" href="/css/firstTime.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/css/formcheck/theme/classic/formcheck.css" rel="stylesheet" />
+{% endblock %}
+{% block js_requires %}
+	
+	
+</script>
+{% endblock %}
+{% block content %}
+
+<p>Gracias {% if contact.created_by.name %}{{contact.created_by.name}} {{contact.created_by.surname}} {%else%} {{contact.created_by.email}}{%endif%} por tu reporte, intentaremos solucionar el problema prontamente.</p>
+
+<form method="post" action="" class="stdForm" name="form_contact" id="form_contact">
+	
+	<div>
+		<h1>Número de ticket: {{contact.key.id}}</h1>
+		<p>Módulo que estaba utilizando: <span>{{contact.module}}</span></p>
+		<p>Actividad que estaba realizando: <span>{{contact.activity}}</span></p>
+		<p>Detalle de la actividad y/o retroalimentación:</p>
+		<p>
+			<span>{{contact.details}}</span>
+		</p>
+	</div>
+</form>
+<p style="text-align:center" ><a href="/teacher_panel/">Volver al modulo en que estaba</a></p>
+{% endblock content %}

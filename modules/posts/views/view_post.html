@@ -1,0 +1,28 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block content %}
+
+<h1>{{post.title}}</h1>
+{% if logged_user.is_administrator %}
+<p><a href="/posts/{{post.migration_id}}/edit">Editar</a></p>
+{% endif %}
+<p><small>Publicado el {{post.date_created|date:"d/m/Y"}}</small></p>
+<div class="textContent">{{post.text}}</div>
+<form action="/replies/add" method="post">
+	<fieldset><legend>Agregar Comentario</legend>
+	<input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
+	<input type="hidden" name="sent_from" value="{{from}}" />
+	<label for="replier_name">Nombre:</label><input type="text" name="replier_name" /><br/>
+	<label for="reply">Respuesta (no más de 500 caracteres):</label>
+	<br/><textarea name="reply" cols="60" rows="4"></textarea><br/>
+	<input type="submit" value="Responder">
+	</fieldset>
+</form>
+<h2>Comentarios</h2>
+{% for reply in post.replies %}
+<p>De: {{reply.replier_name}}</p>
+<p>{{reply.reply}}</p>
+{% endfor %}
+<div class="bottomSeparator">
+<a href="/posts/">Volver a los artículos</a>
+</div>
+{% endblock content %}

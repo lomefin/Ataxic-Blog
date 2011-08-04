@@ -1,0 +1,25 @@
+{% extends "../../../templates/admin_template.html" %}
+{% block content %}
+
+<h1>Lista de Preguntas de Trivia</h1>
+
+{% if questions %}
+	{% for question in questions %}
+	<div style="border-bottom: 2px solid black">
+		<h2>{{question.question_text}}<h2>
+		<h3> Respuestas posibles:</h3>
+		{% for answer in question.possible_answers %}
+			<p {% if answer.is_correct %} style="background-color:white; font-weight: bold; color: green;" {% endif %}>{{answer.possible_answer_text}}</p>
+		{% endfor %}
+	</div>
+	{% endfor %}
+{% else %}
+	<p>No hay preguntas de trivia</p>
+{% endif %}
+
+<table>
+	
+</table>
+
+{% endblock content %}
+

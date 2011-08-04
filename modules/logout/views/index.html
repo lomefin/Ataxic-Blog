@@ -1,0 +1,28 @@
+﻿{% extends "../../../templates/login_template.html" %}
+{% block js_activities %}
+
+<script type="text/javascript">
+	window.addEvent('domready',function()
+		{
+			new OverText('usernameInput');
+			new OverText('passwordInput');
+			new Form.Validator.Inline('loginForm');
+		});
+</script>
+{% endblock %}
+{% block content %}
+<form method="post" action="/login" id="loginForm">
+	<div style="width:300px; margin: 10px auto;">
+		<div>
+			<input type="text" name="username"  id="usernameInput" alt="Nombre de usuario" />
+		</div>
+		<div>
+			<input type="password" name="password"  id="passwordInput" alt="Contraseña"/>
+		</div>
+		<div>
+			<input type="submit" value="Ingresar" />
+		</div>
+	</div>
+</form>
+{% endblock content %}
+

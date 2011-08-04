@@ -1,0 +1,143 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+<link type="text/css" media="screen" href="/css/firstTime.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="/css/formcheck/theme/classic/formcheck.css" rel="stylesheet" />
+{% endblock %}
+{% block js_activities %}
+	<script type="text/javascript" src="/js/formcheck/lang/es.js"> </script>
+	<script type="text/javascript" src="/js/formcheck/formcheck.js"></script>
+	<script type="text/javascript">
+	
+	window.addEvent('domready', function() 
+	{
+		var myCheck = new FormCheck('form_first_time', {
+                    display : {
+                        scrollToFirst : false
+                    }
+                   
+                })
+		
+		new CalendarEightysix('birth_date',  { 'toggler': 'birth_date', 'theme': 'vista','format': '%d/%m/%Y','disallowUserInput': true, 'offsetY': -4 });
+		
+		MooTools.lang.set('es-CL', 'Date', {
+				months:    ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+				days:      ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+				dateOrder: ['date', 'month', 'year', '/']
+			});
+		MooTools.lang.setLanguage('es-CL');
+		//new FormCheck('form_first_time');
+		
+	});
+	//Form validation
+	function validateDate(el)
+	{
+		if (!el.value.test(/(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d\d\d\d/)) {
+			el.errors.push("La fecha no es valida");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	function validateNumbers(el)
+	{
+		if (!el.value.test(/\d{2,3}/)) {
+			el.errors.push("*");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
+	function setDate()
+	{
+		var day = document.getElementById('day');
+		day = day[day.selectedIndex].value;
+		if(day.length == 1)
+			day = '0' + day;
+		var month = document.getElementById('month');
+		month = month[month.selectedIndex].value;
+		if(month.length == 1)
+			month = '0'+month
+		var year = document.getElementById('year');
+		year = year[year.selectedIndex].value;
+		
+		var date = document.getElementById('birth_date')
+		date.value = day + '/'+month+'/'+year
+	}
+		
+	
+</script>
+{% endblock js_activities%}
+{% block content %}
+
+<h1>Bienvenido!</h1>
+<p>Hola {{name}}! Antes de comenzar, necesitamos que me des algunos datos tuyos por favor.</p>
+
+<form method="post" action="/start/" class="firstTime" name="form_first_time" id="form_first_time">
+
+	<table cellspacing="10">
+		<tr>
+			<th>Peso (en kg)</th>
+			<td><input type="text" name="weight" class="validate['required','digit']" /></td>
+		</tr>
+		<tr>
+			<th>Altura (en cm)</th>
+			<td><input type="text" name="height" class="validate['required','digit']"></td>
+		</tr>
+		<tr style="display:none">
+			<th>Fecha de nacimiento</th>
+			<td >
+				<input type="text" name="birth_date" id="birth_date" value="01/01/1990"  class="validate['required','%validateDate']" readonly="readonly"/></div>
+			</td>
+		</tr>
+		<tr>
+			<th>Fecha de nacimiento</th>
+			<td >
+				<select id="day" onchange="setDate()">
+					{% for day in days %}
+						<option value="{{day}}">{{day}}</option>
+					{% endfor%}
+				</select>
+				/
+				<select id="month" onchange="setDate()">
+					{% for month in months %}
+						<option value="{{month}}">{{month}}</option>
+					{% endfor%}
+				</select>
+				/
+				<select id="year" onchange="setDate()">
+					{% for year in years %}
+						<option value="{{year}}">{{year}}</option>
+					{% endfor%}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>Sexo</th>
+			<td >
+				<input type="radio" name="sex" value="femenino" class="validate['radios']" />Femenino
+				<input type="radio" name="sex" value="masculino" class="validate['radios']" />Masculino
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><p>Bien, también necesitamos saber cuanta gente vive contigo</p></td>
+		</tr>
+		<tr>
+			<th>Menores de 18 años</th>
+			<td><input type="text" name="people_under_18" class="validate['required','digit']" /></td>
+		</tr>
+		<tr>
+			<th>18 años o más</th>
+			<td><input type="text" name="people_over_18" class="validate['required','digit']" /></td>
+		</tr>
+		<tr>
+			<th colspan="2"><p class="simulatedButton" id="btnReady"><a class="validate['submit']">Enviar!!</a></p></th>
+		</tr>
+	</table>
+
+	
+	
+</form>
+
+{% endblock content %}

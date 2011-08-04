@@ -1,0 +1,12 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+<link type="text/css" href="/css/trivia.css" rel="stylesheet" media="screen" />
+{% endblock %}
+{% block content %}
+
+<h1>No hay trivia</h1>
+
+{%if kid_face %}<div id="kid_face"><img src="/img/avatars/{{ kid_face }}.png" height="200px" /> </div>{% endif %}
+<p>Por ahora, no hay más preguntas de trivia para que respondas, muchas gracias por participar!</p>
+
+{% endblock content %}

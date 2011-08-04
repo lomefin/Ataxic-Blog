@@ -1,0 +1,61 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+<link type="text/css" href="/css/MooEditable.css" rel="stylesheet" />
+{% endblock css_requires %}
+{% block js_requires%}
+<script type="text/javascript" src="/js/MooEditable.js"></script>
+{%endblock js_requires%}
+{% block js_activities %}
+<script type="text/javascript"> 
+	window.addEvent('domready', function(){
+		$('postContent').mooEditable();
+ 	});
+	
+	var collapsible = new Fx.Slide($('newMessageForm'), {
+        duration: 50,
+        transition: Fx.Transitions.linear
+	});
+	collapsible.toggle();
+
+		</script> 
+{% endblock js_activities %}
+{% block content %}
+
+<h1>Posts (de lo que podría ser un blog) {{logged_user}}</h1>
+{% if logged_user.is_administrator %}
+	<h2 onclick="collapsible.toggle();">Crear nuevo mensaje</h2>
+	<div id="newMessageForm" style="">
+		<form action="" method="post">
+			<table>
+				<tr>
+					<th>Titulo</th>
+					<td><input type="text" name="title" /></td>
+				</tr>
+				<tr>
+					<th colspan="2">Cuerpo del mensaje</th>
+				</tr>
+				<tr>
+					<td colspan="2"><textarea style="min-width:700px" rows="40" id="postContent" name="content"></textarea></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type='submit' value='Crear' /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+{% endif %}
+{% if not messages %}
+	<p>Bu, no hay mensajes.</p>
+{% endif %}
+
+{% for message in messages %}
+	<h3><a href="/posts/{{message.migration_id}}">{{message.title}}</a></h3>
+	<div class="textContent">{{message.text|truncatewords_html:120|removetags:"a"}}</div>
+	<div><a href="/posts/{{message.migration_id}}">Seguir leyendo</a></div>
+	<div class="bottomSeparator"></div>	
+{% endfor %}
+{% if is_offset %}
+	<a href="?offset={{offset}}">Siguientes</a>
+{%endif%}
+{% endblock content %}

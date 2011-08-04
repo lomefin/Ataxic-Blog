@@ -1,0 +1,37 @@
+﻿{% extends "../../../templates/admin_template.html" %}
+{% block content %}
+
+<h1>Lista de Contactos</h1>
+<h2>Contactos Pendientes</h2>
+{% if contacts %}
+	{% for contact in contacts %}
+		<div class="contactContainer" id="contactContainer{{contact.key.id}}" >
+			<h1 style="background-color:blue; color:white" id="contact{{contact.key.id}}" onclick="expand(this)">[#{{contact.key.id}}]{{contact.activity}} en {{contact.module}} en {{contact.creation_date}}</h1>
+			<div id="contact{{contact.key.id}}Details" style="display:none; padding-left: 10px;">
+				<p>Detalles:</p>
+				<p>{{contact.details}}</p>
+				<p>Solución</p>
+				<p>Mensaje de solución: (Se enviará a quién lo reportó)<form action="/admin/contacts/close"><input type="text" name="solution" /><input type="hidden" name="contact_code" value="{{contact.key.id}}" /><input type="submit" value="Cerrar Caso"/></form></p>
+			</div>
+		</div>
+	{% endfor %}
+	
+{% else %}
+	<p>No hay colegios en el sistema</p>
+{% endif %}
+<table>
+	
+</table>
+
+{% endblock content %}
+{% block js_activities %}
+<script type="text/javascript">
+	function expand(element)
+	{
+		var id = element.id;
+		var detailElement = document.getElementById(id + 'Details');
+		detailElement.style.display = 'block';
+	}
+</script>
+{% endblock js_activities %}
+_

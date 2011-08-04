@@ -1,0 +1,48 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+<link type="text/css" href="/css/todo.css" rel="stylesheet" media="screen" />
+{% endblock %}
+{% block js_requires %}
+	
+
+{% endblock %}
+{% block js_activities %}
+
+<script type="text/javascript">
+	window.addEvent('domready',function()
+		{
+			new OverText('newCompromise');
+		});
+</script>
+{% endblock %}
+{% block content %}
+<h1>Mis compromisos</h1>
+<p>Estamos seguros que después de revisar lo que comiste y los mensajes
+de la trivia, tu capacidad de reflexión te ayudará a comprometerte con
+algunos cambios. ¡Recuerda ser realista!</p>
+<form action="" method="post">
+	<div id="compromiseBox">
+		<input type="text" id="newCompromise" alt="Me comprometo a..." name="newCompromise" />
+		<p><input type="submit" value="Agregar" /></p>
+	</div>
+	
+</form>
+<h2>Mis compromisos pendientes</h2>
+<p>Cuando cumplas algún compromiso, hazle clic para finalizarlo.</p>
+<div id="pendingCompromises" class="goalList">
+	<table>
+	{% for goal in pending %}
+		<tr><td><a href="/todo/completed/{{goal.key.id}}">{{goal.goal}}</a></td></tr>
+	{% endfor %}
+	</table>
+</div>
+<h2>Mis compromisos cumplidos</h2>
+<div id="accomplishedCompromises" class="goalList">
+	<table>
+	{% for goal in accomplished %}
+		<tr><td style="vertical-align:middle"><img src="/img/ok.png" height="30px" />{{goal.goal}}</td></tr>
+	{% endfor %}
+	</table>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,33 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block content %}
+{% if logged_user.is_administrator %}
+	
+<h1>Fotos</h1>
+	<h2>Subir nueva foto</h2>
+	<form action="" method="post" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<th>Titulo Foto</th>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<tr>
+				<th>Descripción</th>
+				<td><input type="text" name="desc" /></td>
+			</tr>
+			<tr>
+				<th>Tags</th>
+				<td><input type="text" name="tags" /></td>
+			</tr>
+			<tr>
+				<th>Archivo:</th>
+				<td><input type="file" name="content" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type='submit' value='Subir' /></td>
+			</tr>
+		</table>
+	</form>
+{% endif %}
+
+{% endblock content %}

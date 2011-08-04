@@ -1,0 +1,28 @@
+﻿{% extends "../../../templates/teacher_template.html" %}
+{% block content %}
+
+<h1>{{student.student_account.name}} {{student.student_account.surname}}</h1>
+<h2>Información General</h2>
+<dl>
+	<dt>Curso</dt>
+	<dd>{{student.attending_class.name}} {{student.attending_class.year}}  {{student.attending_class.school.name}} </dd>
+	<dt>Nombre de usuario</dt>
+	<dd>{{student.student_account.system_login}}</dd>
+	<dt>Contraseña</dt>
+	<dd>{{student.student_account.system_password}}</dd>
+</dl>
+<h2>Compromisos</h2>
+<h3>Cumplidos</h3>
+{% for goal in goals %}
+	{% if goal.date_completed %}
+	<p>{{goal.goal}}, cumplido el {{goal.date_completed}}</p>
+	{% endif %}
+{% endfor%}
+<h3>Por cumplir</h3>
+{% for goal in goals %}
+	{% if not goal.date_completed %}
+	<p>{{goal.goal}}, creado el {{goal.creation_date}}</p>
+	{% endif %}
+	
+{% endfor%}
+{% endblock content %}

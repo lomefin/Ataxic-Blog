@@ -1,0 +1,12 @@
+﻿{% extends "../../../templates/teacher_template.html" %}
+{% block content %}
+
+<h1>Error</h1>
+
+<div id="errorContainer">
+	<h2>{% if error_title %}{{error_title}}{% else %} Ha ocurrido un error {% endif %}</h2>
+	<p>{{error_message}}</p>
+	<p>Por favor, avise de este problema a soporte@mekuido.info o a través del <a href="/admin/support/contact/">formulario de soporte</a></p>
+</div>
+{% endblock content %}
+

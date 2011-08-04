@@ -1,0 +1,18 @@
+﻿{% extends "../../../templates/main_template.html" %}
+{% block content %}
+
+<h1>{{post.title}}</h1>
+<p><small>Publicado el {{post.date_created|date:"d/m/Y"}}</small></p>
+<div>{{post.text}}</div>
+<form action="/Comments/Add" method="post">
+	<fieldset><legend>Agregar Comentario</legend>
+	<input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
+	<label for="replier_name">Nombre:</label><input type="text" name="replier_name" /><br/>
+	<label for="reply">Respuesta:</label><textarea name="reply"></textarea><br/>
+	<input type="submit" value="Responder">
+	</fieldset>
+</form>
+<div class="bottomSeparator">
+<a href="/posts/">Volver a los artículos</a>
+</div>
+{% endblock content %}

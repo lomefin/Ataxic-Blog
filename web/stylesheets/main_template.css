@@ -1,0 +1,121 @@
+body
+{
+	margin: 0px 0px 0px 0px;
+	color: black;
+	background: url(/img/moon1400.jpg) no-repeat fixed, url(/img/moonRepeat.jpg) repeat-x fixed;
+	
+}
+a
+{
+	text-decoration: none;
+	font-weight: bold;
+}
+	a:visited{color: #5555aa;}
+	a:link{color:#5555aa;}
+#mainContainer
+{
+	background-color: white;
+	width: 1000px;
+	margin: 0px;
+	padding: 0px 10px 10px 10px;
+	min-height: 650px;
+	border: 0px solid #55aa55;
+	border-radius : 0px 0px 7px 0px;
+	opacity: 0.9;
+}
+	#mainContainer h1,h2,h3
+	{
+		text-shadow: 2px 2px 3px #ccc;
+		font-family: "myriad-pro-1","myriad-pro-2";
+	}
+	#mainContainer p
+	{
+		margin-top: 0px;
+		letter-spacing: 0px;
+	}
+#menuContainer
+{
+	/*background-color: #262626;*/
+	background-color: black;
+	color: white;
+	text-align: left;
+	text-transform:uppercase;
+	font-family: "myriad-pro-1","myriad-pro-2";
+	display: block;
+	width: 100%;
+	padding-top:5px;
+}	
+	#menuContainer div {display: inline;}
+	#menuContainer span
+	{
+		margin-right: 10px;
+	}
+	#menuContainer span:hover
+	{
+		color: white;
+	}
+	#menuContainer a
+	{
+		font-size: 14pt;
+		font-weight: normal;
+		color: #ccc;
+	}
+	#menuContainer a:hover { color: white; }
+#flashContainer
+{
+	text-align:center;
+	border-radius: 3px;
+}
+	.normalFlash{	background-color: #5555aa;}
+	.successFlash {	background-color: #55aa55;}
+	.errorFlash{	background-color: #aa5555;}
+#headerContainer
+{
+	min-height: 50px;
+	display: block;
+	margin: 0px 0px 0px 10px;
+	padding-top: 5px;
+	font-size: 22pt;
+	display: inline;
+	text-shadow: #ccf 0px;
+	margin-right: 14px;
+	font-style: italic;
+	font-weight: medium;
+}
+  #headerLeonardo { color:#cccccc; }
+  #headerLuarteNet {color:#5555aa;}
+  #headerContainer span
+  {
+    margin-right: 0px;
+    line-height:20px;
+  }
+  #headerContainer span:hover
+  {
+      background-color: transparent;
+  }
+.textContent
+{
+	margin-right: 200px;
+}
+#bodyContainer
+{
+	margin-top:0px;
+	min-height: 450px;
+	padding-top: 10px;
+	opacity: 1 !important;
+}
+	
+#footerContainer
+{
+	text-align:center;
+}
+pre
+{
+	padding: 1em;
+	background-color: black;
+	color: white;
+}
+.bottomSeparator
+{
+	border-top: 1px solid #5555aa;
+}

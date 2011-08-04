@@ -1,0 +1,25 @@
+{% extends "../../../templates/admin_template.html" %}
+{% block content %}
+
+<h1>Lista de Cursos de {{school.name}}</h1>
+
+{% if classes %}
+	<table>
+		{% for class in classes %}
+		<tr>
+			<td>{{class.name}}</td>
+			<td>{{class.year}}</td>
+			<td><a href="/admin/students/{{class.key.id}}/list">Lista de alumnos</a></td>
+			<td><a href="/admin/students/{{class.key.id}}/add">Agregar alumnos</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<p>No hay cursos para este colegio</p>
+{% endif %}
+<table>
+	
+</table>
+
+{% endblock content %}
+

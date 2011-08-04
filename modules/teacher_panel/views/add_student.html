@@ -1,0 +1,33 @@
+﻿{% extends "../../../templates/teacher_template.html" %}
+{% block content %}
+
+<h1>Agregar Alumno</h1>
+<p>Agregandose al curso {{class.name}} de {{class.school.name}}</p>
+<p>Ingrese los nombres y apellidos de los alumnos de este curso que no han sido aún ingresados.</p>
+<form method="post" action="add">
+	<table border="1">
+		<thead>
+		<tr><th></th><th>Nombre</th><th>Apellido</th>
+	</thead>
+		
+		<tbody>
+			{% for i in user_count_range %}
+			<tr>
+				<td>{{i}}</td>
+				<td><input type="text" name="student_name{{i}}" maxlength="30" /></td>
+				<td><input type="text" name="student_surname{{i}}" maxlength="30"/></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3"><input type="submit" value="Agregar" /></td>
+			</tr>
+		</tfoot>
+	</table>
+	
+
+</form>
+
+
+{% endblock content %}

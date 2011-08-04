@@ -1,0 +1,87 @@
+body
+{
+	margin: 10px 0px 0px 0px;
+	color: black;
+	background: url(/img/moon1400.jpg) no-repeat fixed, url(/img/moonRepeat.jpg) repeat-x fixed;
+	
+}
+a
+{
+	text-decoration: none;
+	font-weight: bold;
+}
+	a:visited{color: inherit;}
+	a:link{color:inherit;}
+#mainContainer
+{
+	background-color: white;
+	width: 1000px;
+	margin: 0px auto;
+	padding: 0px 10px 10px 10px;
+	min-height: 550px;
+	border: 2px solid #55aa55;
+	border-radius : 14px;
+	opacity: 0.9;
+}
+	#mainContainer h1
+	{
+		text-shadow: 0 3px white;
+		font-family: "myriad-pro-1","myriad-pro-2";
+	}
+	#mainContainer p
+	{
+		letter-spacing: 0px;
+	}
+#menuContainer
+{
+	/*background-color: #262626;*/
+	background-color: #5555aa;
+	color: white;
+	text-align: right;
+	text-transform:uppercase;
+	font-family: "myriad-pro-1","myriad-pro-2";
+}
+	#menuContainer span
+	{
+		margin-right: 10px;
+	}
+	#menuContainer span:hover
+	{
+		background-color: #cccccc;
+	}
+	#menuContainer a
+	{
+		font-weight: normal;
+	}
+#flashContainer
+{
+	text-align:center;
+	border-radius: 3px;
+}
+	.normalFlash{	background-color: #5555aa;}
+	.successFlash {	background-color: #55aa55;}
+	.errorFlash{	background-color: #aa5555;}
+
+.textContent
+{
+	margin-right: 200px;
+}
+#bodyContainer
+{
+	min-height: 450px;
+}
+	
+#footerContainer
+{
+	text-align:center;
+}
+pre
+{
+	padding: 1em;
+	background-color: black;
+	color: white;
+}
+.bottomSeparator
+{
+	border-top: 1px solid #5555aa;
+}
