@@ -19,6 +19,7 @@ import datetime
 import os
 import lib
 import string
+import sys
 #import controller.sessions.SessionManager
 #from controller.appengine_utilities.sessions import Session
 #from controller.appengine_utilities.flash import Flash
@@ -47,8 +48,8 @@ class PostHandler(llhandler.LLHandler):
 				offset=int(self.request.get('offset'))
 		except:
 			pass
-		if LLPost.all().count() > 0:
-			messages = LLPost.all().order('-date_created').fetch(10,offset)
+		if LLArticle.all().count() > 0:
+			messages = LLArticle.all().order('-date_created').fetch(10,offset)
 			
 			values = {'messages':messages,'offset':offset+10,'is_offset':len(messages)>10}
 			self.render('index',template_values=values)
@@ -61,14 +62,17 @@ class PostHandler(llhandler.LLHandler):
 	
 	def internal_post(self):
 		try:
-			message = LLPost()
+			message = LLArticle()
 			message.title = self.request.get('title')
 			message.text = self.request.get('content')
 			message.creator = self.current_account
-			message.commit()
+			message.put()
+			if self.request.get('publish') is not None:
+			  self.set_flash('publish : ' + str(self.request.get('publish')))
 			self.set_flash('Post agregado')
-		except:
-			self.set_flash('No se pudo agregar el post',flash_type='errorFlash')
+		except :
+			self.set_flash('No se pudo agregar el post.',flash_type='errorFlash')
+			
 		self.redirect('/posts/')
 
 class ViewPostHandler(llhandler.LLHandler):
@@ -80,8 +84,8 @@ class ViewPostHandler(llhandler.LLHandler):
 		self.view_post(post_id)
 		
 	def view_post(self,post_id):
-		post = LLPost.all().filter('migration_id =',int(post_id)).get()
-		#post = LLPost.get_by_id(int(post_id))
+		post = LLArticle.all().filter('migration_id =',int(post_id)).get()
+		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			values = {'post':post,'from':self.request.path}
 			self.render('view_post',template_values=values)
@@ -98,8 +102,8 @@ class EditPostHandler(llhandler.LLHandler):
 		self.view_post(post_id)
 		
 	def view_post(self,post_id):
-		post = LLPost.all().filter('migration_id =',int(post_id)).get()
-		#post = LLPost.get_by_id(int(post_id))
+		post = LLArticle.all().filter('migration_id =',int(post_id)).get()
+		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			values = {'post':post,'from':self.request.path}
 			self.render('edit_post',template_values=values)
@@ -116,8 +120,8 @@ class EditPostHandler(llhandler.LLHandler):
 		self.edit_post(post_id)
 	
 	def edit_post(self,post_id):
-		post = LLPost.all().filter('migration_id =',int(post_id)).get()
-		#post = LLPost.get_by_id(int(post_id))
+		post = LLArticle.all().filter('migration_id =',int(post_id)).get()
+		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			post_body = self.request.get('content')
 			post.text = post_body

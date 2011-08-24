@@ -34,17 +34,12 @@ class LLPostedElement(polymodel.PolyModel):
 	date_created = db.DateTimeProperty(auto_now_add=True) 
 	is_active = db.BooleanProperty(default=True)
 	creator = db.ReferenceProperty(LLAccount,collection_name='posts')
-	migration_id = db.IntegerProperty()
+	date_published = db.DateTimeProperty()
 	
-	def commit(self):
-		self.put()
-		if not self.migration_id:
-			self.migration_id = self.key().id()
-		
-		self.put()
+	
 		
 	
-class LLPost(LLPostedElement):
+class LLArticle(LLPostedElement):
 	title = db.StringProperty()
 	slug  = db.StringProperty()
 	text = db.TextProperty()

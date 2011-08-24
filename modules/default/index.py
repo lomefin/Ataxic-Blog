@@ -39,7 +39,7 @@ class DefaultHandler(llhandler.LLHandler):
 	def internal_get(self):
 		
 		last_news = LLNews.all().order('-date_created').fetch(3)
-		last_posts = LLPost.all().order('-date_created').fetch(3)
+		last_posts = LLArticle.all().order('-date_created').fetch(3)
 		last_links = LLLink.all().order('-date_created').fetch(5)
 		values = {'news':last_news,'posts':last_posts,'links':last_links}
 		

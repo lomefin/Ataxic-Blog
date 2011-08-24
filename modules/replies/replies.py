@@ -64,7 +64,7 @@ class ViewPostHandler(llhandler.LLHandler):
 		self.view_post(post_id)
 		
 	def view_post(self,post_id):
-		post = LLPost.get_by_id(int(post_id))
+		post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			values = {'post':post}
 			self.render('view_post',template_values=values)

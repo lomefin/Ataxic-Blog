@@ -1,26 +1,39 @@
 ﻿{% extends "../../../templates/main_template.html" %}
 {% block content %}
-
-<p>Ingeniero de Proyectos, jefe área aplicaciones móviles en <a href="http://www.neonline.cl">Neonline</a>.
-<br />Fotógrafo aficionado, fanático de los viajes y la cocina. Gustoso de un buen libro o una buena película.
-<br />Fanático de aprender nuevas cosas, útiles o no. Sin miedo al emprendimiento.</p>
-<h1>Lo más nuevo</h1>
-<p>No es que esté lleno aún de contenido, pero lo más reciente lo podrás ver por aquí. Puedes por mientras seguir <a href="http://twitter.com/lomefin">mi twitter</a>, o ver <a href="http://blogpocooriginal.blogspot.com">mi blog</a>, o ver mis fotos en <a href="http://www.flickr.com/photos/18376925@N04/">flickr</a> o en <a href="http://lomefin.deviantart.com/">deviantart</a>.</p>		
-<div style="float:right; width:300px;border-left: 1px solid black; padding-left:5px">
+<div class="row">
+<p>Ataxic es un grupo de trabajo entre 4 compañeros de Ingeniería Civil en Computación e Informática que ha decidido 
+devolver la mano a la comunidad que le ha permitido avanzar durante el desarrollo de sus carreras y profesiones.</p>
+</div>
+<div class="row">
+  <div class="tencol">
+    <h1>Recientes</h1>
+  </div>
+</div>
+<div class="row">
+	
+  <div class="eightcol">
+  <h2>Artículos</h2>
+  {% for element in posts %}
+	  <h3><a href="/posts/{{element.key.id}}">{{element.title}}</a></h3>
+	  <p>{{element.text|truncatewords_html:20|removetags:"img"}}</p>
+	  <p><a href="/posts/{{element.key.id}}">Leer más de {{element.title}}</a></p>
+  {% endfor %}
+  </div>
+  <div class="fourcol last">
 	<h2>Links</h2>
 	{%for element in links%}
 		<p><a href="{{element.url}}" target="leoluartenet_linkview">{{element.title}} <img src="/img/ExternalLinkIcon.gif"/></a></p>
 	{%endfor%}		
+	</div>
+  </div>
 </div>
-<h2>Noticias</h2>
-{% for element in news %}
-	<h3><a href="/news/">{{element.title}}</a></h3>
-	<p>{{element.text|truncatewords_html:20}}</p>
-{% endfor %}
-<h2>Artículos</h2>
-{% for element in posts %}
-	<h3><a href="/posts/{{element.key.id}}">{{element.title}}</a></h3>
-	<p>{{element.text|truncatewords_html:20|removetags:"img"}}</p>
-	<p><a href="/posts/{{element.key.id}}">Leer más de {{element.title}}</a></p>
-{% endfor %}
+<div class="row">
+<div class="eightcol last">
+  <h2>Noticias</h2>
+  {% for element in news %}
+	  <h3><a href="/news/">{{element.title}}</a></h3>
+	  <p>{{element.text|truncatewords_html:20}}</p>
+  {% endfor %}
+  </div>
+</div>
 {% endblock content %}

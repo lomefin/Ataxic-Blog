@@ -1,13 +1,27 @@
 ﻿{% extends "../../../templates/main_template.html" %}
 {% block content %}
-
-<h1>{{post.title}}</h1>
-{% if logged_user.is_administrator %}
-<p><a href="/posts/{{post.migration_id}}/edit">Editar</a></p>
-{% endif %}
-<p><small>Publicado el {{post.date_created|date:"d/m/Y"}}</small></p>
-<div class="textContent">{{post.text}}</div>
-<form action="/replies/add" method="post">
+<div class="row">
+  <div class="tencol">
+    <h1>{{post.title}}</h1>
+  </div>
+  {% if logged_user.is_administrator %}
+  <div class="twocol last"><a href="/posts/{{post.migration_id}}/edit">Editar</a></div>
+  {% endif %}
+</div>
+<div class="row">
+  <div class="fiverow last">
+    <small>Publicado el {{post.date_created|date:"d/m/Y"}}</small>
+  </div>
+</div>
+<div class="row">
+  
+  <div class="textContent eightcol">
+    <article>
+      {{post.text}}
+    </article>
+  </div>
+  <div class=" threecol last">
+    <form action="/replies/add" method="post">
 	<fieldset><legend>Agregar Comentario</legend>
 	<input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
 	<input type="hidden" name="sent_from" value="{{from}}" />
@@ -16,13 +30,26 @@
 	<br/><textarea name="reply" cols="60" rows="4"></textarea><br/>
 	<input type="submit" value="Responder">
 	</fieldset>
-</form>
-<h2>Comentarios</h2>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="eightcol">
+    <h2>Comentarios</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="eightcol">
 {% for reply in post.replies %}
 <p>De: {{reply.replier_name}}</p>
 <p>{{reply.reply}}</p>
 {% endfor %}
-<div class="bottomSeparator">
-<a href="/posts/">Volver a los artículos</a>
+  </div>
 </div>
+<div class="row">
+  <div class="eightcol">
+    <a href="/posts/">Volver a los artículos</a>
+  </div>
+</div>
+
 {% endblock content %}

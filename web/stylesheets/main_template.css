@@ -1,8 +1,7 @@
 body
 {
-	margin: 0px 0px 0px 0px;
 	color: black;
-	background: url(/img/moon1400.jpg) no-repeat fixed, url(/img/moonRepeat.jpg) repeat-x fixed;
+	background:  white;
 	
 }
 a
@@ -15,18 +14,14 @@ a
 #mainContainer
 {
 	background-color: white;
-	width: 1000px;
-	margin: 0px;
-	padding: 0px 10px 10px 10px;
-	min-height: 650px;
-	border: 0px solid #55aa55;
-	border-radius : 0px 0px 7px 0px;
 	opacity: 0.9;
+	min-height:500px;
 }
 	#mainContainer h1,h2,h3
 	{
 		text-shadow: 2px 2px 3px #ccc;
 		font-family: "myriad-pro-1","myriad-pro-2";
+		line-height:1.5em;
 	}
 	#mainContainer p
 	{
@@ -42,13 +37,10 @@ a
 	text-transform:uppercase;
 	font-family: "myriad-pro-1","myriad-pro-2";
 	display: block;
-	width: 100%;
-	padding-top:5px;
 }	
 	#menuContainer div {display: inline;}
 	#menuContainer span
 	{
-		margin-right: 10px;
 	}
 	#menuContainer span:hover
 	{
@@ -71,14 +63,12 @@ a
 	.errorFlash{	background-color: #aa5555;}
 #headerContainer
 {
-	min-height: 50px;
+	
 	display: block;
-	margin: 0px 0px 0px 10px;
-	padding-top: 5px;
 	font-size: 22pt;
-	display: inline;
+	
 	text-shadow: #ccf 0px;
-	margin-right: 14px;
+	
 	font-style: italic;
 	font-weight: medium;
 }
@@ -86,7 +76,6 @@ a
   #headerLuarteNet {color:#5555aa;}
   #headerContainer span
   {
-    margin-right: 0px;
     line-height:20px;
   }
   #headerContainer span:hover
@@ -95,16 +84,16 @@ a
   }
 .textContent
 {
-	margin-right: 200px;
+	
 }
 #bodyContainer
 {
-	margin-top:0px;
-	min-height: 450px;
-	padding-top: 10px;
 	opacity: 1 !important;
 }
-	
+.memberBio
+{
+ 
+}
 #footerContainer
 {
 	text-align:center;

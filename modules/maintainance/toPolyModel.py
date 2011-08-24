@@ -45,7 +45,7 @@ class PolyHandler(llhandler.LLHandler):
 		self.log('Welcome, running script ' +self.__class__.__name__,"ok")
 		
 		self.log('Checking Posts')
-		posts = LLPost.all()
+		posts = LLArticle.all()
 		for post in posts:
 			try:
 				self.log('Viewing post %d'%post.key().id())
