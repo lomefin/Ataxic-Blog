@@ -36,9 +36,6 @@ class LLPostedElement(polymodel.PolyModel):
 	creator = db.ReferenceProperty(LLAccount,collection_name='posts')
 	date_published = db.DateTimeProperty()
 	
-	
-		
-	
 class LLArticle(LLPostedElement):
 	title = db.StringProperty()
 	slug  = db.StringProperty()
