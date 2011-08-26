@@ -1,5 +1,6 @@
 import model.models
 from model.properties import GenderProperty
+from model.properties import SlugProperty
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
@@ -34,27 +35,23 @@ class LLPostedElement(polymodel.PolyModel):
 	date_created = db.DateTimeProperty(auto_now_add=True) 
 	is_active = db.BooleanProperty(default=True)
 	creator = db.ReferenceProperty(LLAccount,collection_name='posts')
-	date_published = db.DateTimeProperty()
+	date_published = db.DateTimeProperty
+	title = db.StringProperty()
+	slug = SlugProperty(title)
 	
 class LLArticle(LLPostedElement):
-	title = db.StringProperty()
-	slug  = db.StringProperty()
 	text = db.TextProperty()
 	tags = db.StringListProperty()
 
 class LLNews(LLPostedElement):
-	title = db.StringProperty()
-	slug  = db.StringProperty()
 	text = db.TextProperty()	
 	
 class LLLink(LLPostedElement):
-	title = db.StringProperty()
 	description  = db.StringProperty()
 	url = db.StringProperty()
 	tags = db.StringListProperty()
 	
 class LLPicture(LLPostedElement):
-	title = db.StringProperty()
 	description = db.StringProperty()
 	tags = db.StringListProperty()
 	content = db.BlobProperty()

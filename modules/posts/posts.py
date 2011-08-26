@@ -32,6 +32,7 @@ from google.appengine.api import datastore_errors
 from google.appengine.ext.webapp import template
 from lib import errors
 from lib import llhandler
+from lib import slugify
 from model.models import *
 
 
@@ -67,9 +68,11 @@ class PostHandler(llhandler.LLHandler):
 			message.text = self.request.get('content')
 			message.creator = self.current_account
 			message.put()
-			if self.request.get('publish') is not None:
-			  self.set_flash('publish : ' + str(self.request.get('publish')))
-			self.set_flash('Post agregado')
+			if self.request.get('publish') != "true":
+			  message.is_active = False
+			  message.put()
+			else:
+			  self.set_flash('Post agregado')
 		except :
 			self.set_flash('No se pudo agregar el post.',flash_type='errorFlash')
 			
@@ -79,12 +82,12 @@ class ViewPostHandler(llhandler.LLHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
 		
-	def get(self,post_id):
+	def get(self,slug):
 		self.auth_check()
-		self.view_post(post_id)
+		self.view_post(slug)
 		
-	def view_post(self,post_id):
-		post = LLArticle.all().filter('migration_id =',int(post_id)).get()
+	def view_post(self,slug):
+		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			values = {'post':post,'from':self.request.path}
@@ -97,12 +100,12 @@ class EditPostHandler(llhandler.LLHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
 		
-	def get(self,post_id):
+	def get(self,slug):
 		self.auth_check()
-		self.view_post(post_id)
+		self.view_post(slug)
 		
-	def view_post(self,post_id):
-		post = LLArticle.all().filter('migration_id =',int(post_id)).get()
+	def view_post(self,slug):
+		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			values = {'post':post,'from':self.request.path}
@@ -136,8 +139,8 @@ class EditPostHandler(llhandler.LLHandler):
 			
 			
 def main():
-  application = webapp.WSGIApplication([('/posts/', PostHandler),('/posts/(\d*)',ViewPostHandler),
-										('/posts/(\d*)/edit',EditPostHandler),
+  application = webapp.WSGIApplication([('/posts/', PostHandler),('/posts/([a-zA-Z\-0-9]*)',ViewPostHandler),
+										('/posts/([a-zA-Z\-0-9]*)/edit',EditPostHandler),
 										('.*',lib.errors.NotFoundHandler)],
                                        debug=True)
   util.run_wsgi_app(application)

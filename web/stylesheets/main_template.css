@@ -20,7 +20,7 @@ a
 	#mainContainer h1,h2,h3
 	{
 		text-shadow: 2px 2px 3px #ccc;
-		font-family: "myriad-pro-1","myriad-pro-2";
+		  font-family: proxima-nova,sans-serif;
 		line-height:1.5em;
 	}
 	#mainContainer p
