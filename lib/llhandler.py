@@ -43,7 +43,7 @@ class LLGAEHandler(webapp.RequestHandler):
 		#Check if the user is in @mekuido.info
 		if user:
 			emailDomain = user.email().split("@")
-			if emailDomain[1] == "luarte.net":
+			if emailDomain[1] == "ataxic.org":
 				self.session = get_current_session()
 				self.current_account = None
 				
@@ -146,7 +146,7 @@ class LLHandler(webapp.RequestHandler):
 					self.current_account.email = user.email()
 						#self.current_account.put()
 					#Setting the session data
-				self.current_account.is_administrator = users.is_current_user_admin()
+				#self.current_account.is_administrator = users.is_current_user_admin()
 				self.current_account.last_entrance = datetime.datetime.now()
 				self.current_account.put()
 				self.session["current_account"] = self.current_account

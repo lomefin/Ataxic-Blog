@@ -1,39 +1,51 @@
 ﻿{% extends "../../../templates/main_template.html" %}
+{% block header %}
+<header class="jumbotron masthead" id="overview"> 
+  <div class="inner"> 
+    <div class="container"> 
+      <h1>Ataxic</h1> 
+      <p class="lead"> 
+        Ataxic es un grupo de trabajo entre 4 compañeros de Ingeniería Civil en Computación e Informática <br />que ha decidido devolver la mano a la comunidad que le ha permitido avanzar durante el desarrollo de sus carreras y profesiones.
+      </p> 
+    </div><!-- /container --> 
+  </div> 
+</header> 
+{%endblock header%}
 {% block content %}
+
+
 <div class="row">
-<p>Ataxic es un grupo de trabajo entre 4 compañeros de Ingeniería Civil en Computación e Informática que ha decidido 
-devolver la mano a la comunidad que le ha permitido avanzar durante el desarrollo de sus carreras y profesiones.</p>
+  
+  <div class="span12 last">
+    <h1>Artículos</h1>
+    {% for element in posts %}
+  	  {% if element.is_active or logged_user.is_administrator%}
+  	  <h3><a href="/posts/{{element.slug}}">{{element.title}}</a></h3>
+  	  <p>{{element.text|truncatewords_html:20|removetags:"img"}}</p>
+  	  <p><a href="/posts/{{element.slug}}">Leer más de {{element.title}}</a></p>
+  	  {%endif%}
+    {% endfor %}
+  </div>
+  
 </div>
 <div class="row">
-  <div class="tencol">
-    <h1>Recientes</h1>
-  </div>
-</div>
-<div class="row">
-	
-  <div class="eightcol">
-  <h2>Artículos</h2>
-  {% for element in posts %}
-	  <h3><a href="/posts/{{element.key.id}}">{{element.title}}</a></h3>
-	  <p>{{element.text|truncatewords_html:20|removetags:"img"}}</p>
-	  <p><a href="/posts/{{element.key.id}}">Leer más de {{element.title}}</a></p>
-  {% endfor %}
-  </div>
-  <div class="fourcol last">
-	<h2>Links</h2>
-	{%for element in links%}
-		<p><a href="{{element.url}}" target="leoluartenet_linkview">{{element.title}} <img src="/img/ExternalLinkIcon.gif"/></a></p>
-	{%endfor%}		
-	</div>
-  </div>
-</div>
-<div class="row">
-<div class="eightcol last">
-  <h2>Noticias</h2>
+  <div class="span9">
+  {% if news %}
+  <h1>Noticias</h1>
   {% for element in news %}
-	  <h3><a href="/news/">{{element.title}}</a></h3>
+	  <h2><a href="/news/">{{element.title}}</a></h2>
 	  <p>{{element.text|truncatewords_html:20}}</p>
   {% endfor %}
+  {% endif %}
   </div>
+  <div class="span3 last">
+	{% if links %}
+  <h1>Links</h1>
+	{%for element in links%}
+		<p><a href="{{element.url}}" target="leoluartenet_linkview">{{element.title}} <img src="/img/ExternalLinkIcon.gif"/></a></p>
+	{%endfor%}	
+  {%endif%}	
+	</div>
 </div>
+
 {% endblock content %}

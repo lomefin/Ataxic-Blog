@@ -62,37 +62,14 @@ class DefaultHandler(mkhandler.MKHandler):
 	def internal_post(self):
 		
 		#Look up for the username
-		self.current_account =  MKAccount.all().filter('system_login = ',self.request.get('username')).filter('system_password = ',self.request.get('password')).get()
+		self.current_account =  LLAccount.all().filter('system_login = ',self.request.get('username')).filter('system_password = ',self.request.get('password')).get()
 		
 		if not self.current_account:
 			values = {'flash' : 'Nombre de usuario o contrasena no existe'}
 			self.render('index',template_values=values)
 			return
 		
-		#The user exist, now must check if it is a student.
-		self.current_student_user = MKStudent.all().filter('student_account = ',self.current_account).get()
-		self.current_account.last_entrance = datetime.datetime.now()
-		self.current_account.put()
-		#Setting the session data
-		#self.session.regenerate_id()
-		self.session["current_account"] = self.current_account
-		self.session["current_account"].put()
-		time.sleep(1)
 		
-		
-		if self.current_student_user:
-			self.session["current_student_user"] = self.current_student_user
-			self.session["current_student_user"].put()
-			time.sleep(1)
-			#Check if it has started
-			if self.current_student_user.has_started:
-				self.redirect('/')
-				return
-			else:
-				self.redirect('/start/')
-				return
-		
-		self.redirect('/teacher_panel/')
 		
 def main():
   application = webapp.WSGIApplication([('/login', DefaultHandler),('/logout', LogoutHandler)],

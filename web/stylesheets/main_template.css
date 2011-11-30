@@ -2,7 +2,8 @@ body
 {
 	color: black;
 	background:  white;
-	
+	font-family: minion-pro,sans-serif;
+
 }
 a
 {
@@ -34,8 +35,9 @@ a
 	background-color: black;
 	color: white;
 	text-align: left;
-	text-transform:uppercase;
-	font-family: "myriad-pro-1","myriad-pro-2";
+	font-family: quatro,sans-serif;
+	font-style: normal;
+	font-weight: 900;
 	display: block;
 }	
 	#menuContainer div {display: inline;}
@@ -90,6 +92,10 @@ a
 {
 	opacity: 1 !important;
 }
+#bodyContainer p
+{
+  margin-bottom: 1em;
+}
 .memberBio
 {
  
@@ -97,6 +103,14 @@ a
 #footerContainer
 {
 	text-align:center;
+}
+#footerContainer .last
+{
+    font-size: 40px;
+    color: rgba(0,0,0,0.2);
+    font-family: quatro,sans-serif;
+    font-style: normal;
+    font-weight: 900;
 }
 pre
 {
@@ -108,3 +122,9 @@ pre
 {
 	border-top: 1px solid #5555aa;
 }
+#about
+{
+  border: thin solid black;
+  background-color: rgb(250,250,240);
+}
+#about p {padding: 1em;}

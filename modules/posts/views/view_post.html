@@ -1,45 +1,45 @@
 ﻿{% extends "../../../templates/main_template.html" %}
 {% block content %}
 <div class="row">
-  <div class="tencol">
+  <div class="span10">
     <h1>{{post.title}}</h1>
   </div>
   {% if logged_user.is_administrator %}
-  <div class="twocol last"><a href="/posts/{{post.migration_id}}/edit">Editar</a></div>
+  <div class="span2 last"><a href="/posts/{{post.slug}}/edit" class="btn large primary">Editar</a></div>
   {% endif %}
 </div>
 <div class="row">
-  <div class="fiverow last">
-    <small>Publicado el {{post.date_created|date:"d/m/Y"}}</small>
+  <div class="span5 last">
+    <small>Publicado el {{post.date_created|date:"d/m/Y"}} por {{post.creator.name}}</small>
   </div>
 </div>
 <div class="row">
   
-  <div class="textContent eightcol">
+  <div class="textContent span10">
     <article>
       {{post.text}}
     </article>
   </div>
-  <div class=" threecol last">
+  <div class="span3 last">
     <form action="/replies/add" method="post">
 	<fieldset><legend>Agregar Comentario</legend>
 	<input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
 	<input type="hidden" name="sent_from" value="{{from}}" />
 	<label for="replier_name">Nombre:</label><input type="text" name="replier_name" /><br/>
 	<label for="reply">Respuesta (no más de 500 caracteres):</label>
-	<br/><textarea name="reply" cols="60" rows="4"></textarea><br/>
+	<br/><textarea name="reply" cols="20" rows="20"></textarea><br/>
 	<input type="submit" value="Responder">
 	</fieldset>
     </form>
   </div>
 </div>
 <div class="row">
-  <div class="eightcol">
+  <div class="span10">
     <h2>Comentarios</h2>
   </div>
 </div>
 <div class="row">
-  <div class="eightcol">
+  <div class="span8">
 {% for reply in post.replies %}
 <p>De: {{reply.replier_name}}</p>
 <p>{{reply.reply}}</p>
@@ -47,7 +47,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="eightcol">
+  <div class="span8">
     <a href="/posts/">Volver a los artículos</a>
   </div>
 </div>

@@ -40,6 +40,7 @@ class DefaultHandler(llhandler.LLHandler):
 		
 		last_news = LLNews.all().order('-date_created').fetch(3)
 		last_posts = LLArticle.all().order('-date_created').fetch(3)
+		last_posts = LLArticle.all().filter('is_active =',True).order('-date_created').fetch(3)
 		last_links = LLLink.all().order('-date_created').fetch(5)
 		values = {'news':last_news,'posts':last_posts,'links':last_links}
 		
@@ -54,7 +55,6 @@ class NotFoundHandler(llhandler.LLHandler):
 	
 	def get(self):
 		self.render('not_found')
-
 
 def main():
   application = webapp.WSGIApplication([('/', DefaultHandler),('/.*',NotFoundHandler)],

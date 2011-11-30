@@ -20,42 +20,57 @@
 		</script> 
 {% endblock js_activities %}
 {% block content %}
-
-<h1>Posts (de lo que podría ser un blog) {{logged_user}}</h1>
-{% if logged_user.is_administrator %}
-	<h2 onclick="collapsible.toggle();">Crear nuevo mensaje</h2>
-	<div id="newMessageForm" style="">
-		<form action="" method="post">
-			<table>
-				<tr>
-					<th>Titulo</th>
-					<td><input type="text" name="title" /></td>
-				</tr>
-				<tr>
-					<th colspan="2">Cuerpo del mensaje</th>
-				</tr>
-				<tr>
-					<td colspan="2"><textarea style="min-width:700px" rows="40" id="postContent" name="content"></textarea></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="publish" value="true" /><label for="publish">Publicar</label></td>
-					<td><input type='submit' value='Crear' /></td>
-				</tr>
-			</table>
-		</form>
+<div class="row" id="PostsRow" style="margin-top:20px">
+	<div class="span16">
+		<div class="row">
+			<div class="span8">
+				<h1>Artículos</h1>
+			</div>
+			{% if logged_user.is_administrator %}
+			<div class="span4">
+				<a onclick="collapsible.toggle(); return false;" class="btn large primary">Crear nuevo mensaje</a>
+			</div>
+			{% endif %}
+		</div>
+		{% if logged_user.is_administrator %}
+		<div class="row">
+			<div id="newMessageForm" style="" class="span16">
+				<form action="" method="post">
+					<table>
+						<tr>
+							<th>Titulo</th>
+							<td><input type="text" name="title" /></td>
+						</tr>
+						<tr>
+							<th colspan="2">Cuerpo del mensaje</th>
+						</tr>
+						<tr>
+							<td colspan="2"><textarea style="min-width:700px" rows="40" id="postContent" name="content"></textarea></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="publish" value="true" /><label for="publish">Publicar</label></td>
+							<td><input type='submit' value='Crear' /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		{% endif %}
+		{% if not messages %}
+			<p>Bu, no hay artículos.</p>
+		{% endif %}
 	</div>
-{% endif %}
-{% if not messages %}
-	<p>Bu, no hay mensajes.</p>
-{% endif %}
-
-{% for message in messages %}
-	<h3><a href="/posts/{{message.migration_id}}">{{message.title}}</a></h3>
-	<div class="textContent">{{message.text|truncatewords_html:120|removetags:"a"}}</div>
-	<div><a href="/posts/{{message.migration_id}}">Seguir leyendo</a></div>
-	<div class="bottomSeparator"></div>	
-{% endfor %}
-{% if is_offset %}
-	<a href="?offset={{offset}}">Siguientes</a>
-{%endif%}
+	<div class="span16" id="messageList">
+		{% for message in messages %}
+			{% if message.is_active or logged_user.is_administrator%}
+			<h3><a href="/posts/{{message.slug}}">{{message.title}}</a></h3>
+			<div class="textContent">{{message.text|truncatewords_html:120|removetags:"a"}}</div>
+			<div><a href="/posts/{{message.slug}}">Seguir leyendo</a></div>
+			<div class="bottomSeparator"></div>	
+			{% endif %}
+		{% endfor %}
+		{% if is_offset %}
+			<a href="?offset={{offset}}">Siguientes</a>
+		{%endif%}
+	</div>
+</div>
 {% endblock content %}

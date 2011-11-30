@@ -114,23 +114,23 @@ class EditPostHandler(llhandler.LLHandler):
 			self.set_flash('No existe ese post',flash_type='errorFlash')
 			self.redirect('/posts/')
 			
-	def post(self,post_id):
+	def post(self,slug):
 		self.auth_check()
 		#if not self.current_account.is_administrator:
 		#	self.set_flash('No tienes autorización para editar el post',flash_type='errorFlash')
 		#	self.redirect('/posts/')
 		#	return
-		self.edit_post(post_id)
+		self.edit_post(slug)
 	
-	def edit_post(self,post_id):
-		post = LLArticle.all().filter('migration_id =',int(post_id)).get()
+	def edit_post(self,slug):
+		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
 			post_body = self.request.get('content')
 			post.text = post_body
-			post.commit()
+			post.put()
 			self.set_flash('Cambios agregados',flash_type='successFlash')
-			self.view_post(post_id)
+			self.view_post(slug)
 			
 			return
 		else:
