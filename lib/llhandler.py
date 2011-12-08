@@ -178,23 +178,4 @@ class LLGAEHandler(LLHandler):
 			self.redirect(users.create_login_url(self.request.uri))
         
 			
-	def render(self,pagename,template_values=None):
-		self.logout_url = '/admin/unlog/'
-		self.user_mail = ''
-		if users.get_current_user():
-			self.user_mail = users.get_current_user().email()
-		
-		if not template_values:
-			template_values = {'user_mail':self.user_mail,'logout_url': self.logout_url}
-		else:
-			template_values['logout_url'] = self.logout_url
-			template_values['user_mail'] = self.user_mail
-		try:
-			if self.current_account is not None:
-				template_values['current_account'] = self.current_account
-		except:
-			pass
-		path = os.path.join(self.base_directory(), 'views/'+pagename+'.html')
-		self.response.out.write(template.render(path, template_values))
-	
 	
