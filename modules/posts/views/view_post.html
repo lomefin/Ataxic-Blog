@@ -24,6 +24,19 @@
   </div>
   
 </div>
+<div class="row">
+  <div class="page-header">
+    <h2>Comentarios</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="span8">
+{% for reply in post.replies %}
+<p>De: {{reply.replier_name}}</p>
+<p>{{reply.reply}}</p>
+{% endfor %}
+  </div>
+</div>
 <div clas="row">
   <div class="span8 last">
     <form action="/replies/add" method="post">
@@ -48,19 +61,6 @@
       </div>
     </fieldset>
     </form>
-  </div>
-</div>
-<div class="row">
-  <div class="span10">
-    <h2>Comentarios</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="span8">
-{% for reply in post.replies %}
-<p>De: {{reply.replier_name}}</p>
-<p>{{reply.reply}}</p>
-{% endfor %}
   </div>
 </div>
 <div class="row">

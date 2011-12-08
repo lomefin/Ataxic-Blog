@@ -98,7 +98,7 @@ class ViewPostHandler(llhandler.LLHandler):
 		post = LLArticle.all().filter('slug =',slug).get()
 
 		if post is not None:
-			markdown_html = markdown2.markdown(post.text)
+			markdown_html = markdown2.markdown(post.text,extras={"code-friendly":None,"html-classes":{"pre":"prettyprint"}})
 			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('view_post',template_values=values)
 		else:
@@ -117,7 +117,7 @@ class EditPostHandler(llhandler.LLGAEHandler):
 		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
-			markdown_html = markdown2.markdown(post.text)
+			markdown_html = markdown2.markdown(post.text,extras=["code-friendly"])
 			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('edit_post',template_values=values)
 		else:
