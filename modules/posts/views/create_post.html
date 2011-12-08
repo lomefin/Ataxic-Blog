@@ -12,7 +12,7 @@
 {% block js_activities %}
 <script type="text/javascript"> 
 	$(document).ready(function() {
-      $("#postContent").markItUp(mySettings);
+      $("#content").markItUp(mySettings);
    	});
 	
 </script> 
@@ -26,27 +26,42 @@
 			</div>
 	
 		</div>
-		
-		<div class="row">
-			<div id="newMessageForm" style="" class="span16">
-				<form action="" method="post">
-					<table>
-						<tr>
-							<th>Titulo</th>
-							<td><input type="text" name="title" /></td>
-						</tr>
-						<tr>
-							<th colspan="2">Cuerpo del mensaje</th>
-						</tr>
-						<tr>
-							<td colspan="2"><textarea style="min-width:700px" rows="40" id="postContent" name="content"></textarea></td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" name="publish" value="true" /><label for="publish">Publicar</label></td>
-							<td><input type='submit' value='Crear' /></td>
-						</tr>
-					</table>
-				</form>
+		<form action="" method="post" id="newMessageForm">
+			<div class="row">
+				<div class="span6">
+					<div class="clearfix">
+						<label for="title">Título:</label>
+						<div class="input">
+							<input type="text" name="title" id="title"/>
+					</div>
+				</div>
 			</div>
+			<div class="row">
+				<div class="span4">
+					<label for="content">Cuerpo del mensaje</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<textarea id="content" name="content"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6">
+					<label for="publish">Publicar</label>
+					<input type="checkbox" name="publish" value="true" />
+				</div>
+				<div class="span6">
+					<input type="submit" value="Crear Artículo" class="btn primary" />
+				</div>
+			</div>							
+		</form>
 </div>
 {% endblock content %}
+
+<div class="clearfix">
+	        <label for="replier_name">Nombre:</label>
+	        <div class="input">
+	          <input type="text" name="replier_name" />
+	        </div>
+	      </div>
