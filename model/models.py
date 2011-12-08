@@ -32,6 +32,7 @@ class LLAccount(LLModel):
 	is_administrator	= db.BooleanProperty()
 
 class LLPostedElement(polymodel.PolyModel):
+	format = db.StringProperty()
 	date_created = db.DateTimeProperty(auto_now_add=True) 
 	is_active = db.BooleanProperty(default=True)
 	creator = db.ReferenceProperty(LLAccount,collection_name='posts')
