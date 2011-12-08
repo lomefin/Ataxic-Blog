@@ -78,7 +78,7 @@ class PostHandler(llhandler.LLHandler):
 			
 		self.redirect('/posts/')
 
-def NewPostHandler(llhandler.LLHandler):
+def NewPostHandler(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
 
