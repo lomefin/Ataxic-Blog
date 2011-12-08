@@ -78,6 +78,32 @@ class PostHandler(llhandler.LLHandler):
 			
 		self.redirect('/posts/')
 
+def NewPostHandler(llhandler.LLHandler):
+	def base_directory(self):
+		return os.path.dirname(__file__)
+
+	def internal_get(self):
+
+		self.render('create_post')
+	
+	def internal_post(self):
+		try:
+			message = LLArticle()
+			message.title = self.request.get('title')
+			message.text = self.request.get('content')
+			message.creator = self.current_account
+			message.put()
+			if self.request.get('publish') != "true":
+			  message.is_active = False
+			  message.put()
+			else:
+			  self.set_flash('Post agregado')
+		except :
+			self.set_flash('No se pudo agregar el post.',flash_type='errorFlash')
+			
+		self.redirect('/posts/')
+	
+
 class ViewPostHandler(llhandler.LLHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
@@ -140,7 +166,9 @@ class EditPostHandler(llhandler.LLHandler):
 			
 			
 def main():
-  application = webapp.WSGIApplication([('/posts/', PostHandler),('/posts/([a-zA-Z\-0-9]*)',ViewPostHandler),
+  application = webapp.WSGIApplication([('/posts/', PostHandler),
+  										('/posts/_new',NewPostHandler),
+  										('/posts/([a-zA-Z\-0-9]*)',ViewPostHandler),
 										('/posts/([a-zA-Z\-0-9]*)/edit',EditPostHandler),
 										('.*',lib.errors.NotFoundHandler)],
                                        debug=True)

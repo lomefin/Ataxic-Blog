@@ -19,7 +19,7 @@
         duration: 50,
         transition: Fx.Transitions.linear
 	});
-	collapsible.toggle();
+	//collapsible.toggle();
 
 		</script> 
 {% endblock js_activities %}
@@ -32,33 +32,10 @@
 			</div>
 			{% if logged_user.is_administrator %}
 			<div class="span4">
-				<a onclick="collapsible.toggle(); return false;" class="btn large primary">Crear nuevo mensaje</a>
+				<a onclick="/posts/_new" class="btn large primary">Crear nuevo mensaje</a>
 			</div>
 			{% endif %}
 		</div>
-		{% if logged_user.is_administrator %}
-		<div class="row">
-			<div id="newMessageForm" style="" class="span16">
-				<form action="" method="post">
-					<table>
-						<tr>
-							<th>Titulo</th>
-							<td><input type="text" name="title" /></td>
-						</tr>
-						<tr>
-							<th colspan="2">Cuerpo del mensaje</th>
-						</tr>
-						<tr>
-							<td colspan="2"><textarea style="min-width:700px" rows="40" id="postContent" name="content"></textarea></td>
-						</tr>
-						<tr>
-							<td><input type="checkbox" name="publish" value="true" /><label for="publish">Publicar</label></td>
-							<td><input type='submit' value='Crear' /></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		{% endif %}
 		{% if not messages %}
 			<p>Bu, no hay artículos.</p>
 		{% endif %}

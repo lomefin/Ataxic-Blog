@@ -1,0 +1,52 @@
+{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+
+<link rel="stylesheet" type="text/css" href="/js/markitup/markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="/js/markitup/markitup/sets/default/style.css" />
+{% endblock css_requires %}
+{% block js_requires%}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/markitup/markitup/jquery.markitup.js"></script>
+<script type="text/javascript" src="/js/markitup/markitup/sets/default/set.js"></script>
+{%endblock js_requires%}
+{% block js_activities %}
+<script type="text/javascript"> 
+	$(document).ready(function() {
+      $("#markItUp").markItUp(mySettings);
+   	});
+	
+</script> 
+{% endblock js_activities %}
+{% block content %}
+<div class="row" id="PostsRow" style="margin-top:20px">
+	<div class="span16">
+		<div class="row">
+			<div class="span8">
+				<h1>Crear Nuevo Artículo</h1>
+			</div>
+	
+		</div>
+		
+		<div class="row">
+			<div id="newMessageForm" style="" class="span16">
+				<form action="" method="post">
+					<table>
+						<tr>
+							<th>Titulo</th>
+							<td><input type="text" name="title" /></td>
+						</tr>
+						<tr>
+							<th colspan="2">Cuerpo del mensaje</th>
+						</tr>
+						<tr>
+							<td colspan="2"><textarea style="min-width:700px" rows="40" id="postContent" name="content"></textarea></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="publish" value="true" /><label for="publish">Publicar</label></td>
+							<td><input type='submit' value='Crear' /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+</div>
+{% endblock content %}
