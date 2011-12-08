@@ -34,7 +34,7 @@ from lib import errors
 from lib import llhandler
 from lib import slugify
 from model.models import *
-
+from lib import markdown2
 
 
 class PostHandler(llhandler.LLHandler):
@@ -90,7 +90,8 @@ class ViewPostHandler(llhandler.LLHandler):
 		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
-			values = {'post':post,'from':self.request.path}
+			markdown_html = markdown2.markdown(post.text)
+			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('view_post',template_values=values)
 		else:
 			self.set_flash('No existe ese post',flash_type='errorFlash')
