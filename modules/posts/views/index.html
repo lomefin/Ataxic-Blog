@@ -1,15 +1,19 @@
 ﻿{% extends "../../../templates/main_template.html" %}
 {% block css_requires %}
-<link type="text/css" href="/css/MooEditable.css" rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="/js/markitup/markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="/js/markitup/markitup/sets/default/style.css" />
 {% endblock css_requires %}
 {% block js_requires%}
-<script type="text/javascript" src="/js/MooEditable.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/markitup/markitup/jquery.markitup.js"></script>
+<script type="text/javascript" src="/js/markitup/markitup/sets/default/set.js"></script>
 {%endblock js_requires%}
 {% block js_activities %}
 <script type="text/javascript"> 
-	window.addEvent('domready', function(){
-		$('postContent').mooEditable();
- 	});
+	$(document).ready(function() {
+      $("#markItUp").markItUp(mySettings);
+   	});
 	
 	var collapsible = new Fx.Slide($('newMessageForm'), {
         duration: 50,
