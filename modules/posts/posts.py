@@ -56,27 +56,9 @@ class PostHandler(llhandler.LLHandler):
 			self.render('index',template_values=values)
 		else:
 			self.render('index')
-		#self.base_auth()
-		#self.get_internal()
-		#user_logout = users.create_logout_url("/eventos/")
-		#self.response.out.write("<a href=\"%s\">Logout</a>." %user_logout)
+		
 	
-	def internal_post(self):
-		try:
-			message = LLArticle()
-			message.title = self.request.get('title')
-			message.text = self.request.get('content')
-			message.creator = self.current_account
-			message.put()
-			if self.request.get('publish') != "true":
-			  message.is_active = False
-			  message.put()
-			else:
-			  self.set_flash('Post agregado')
-		except :
-			self.set_flash('No se pudo agregar el post.',flash_type='errorFlash')
-			
-		self.redirect('/posts/')
+	
 
 class NewPostHandler(llhandler.LLGAEHandler):
 	def base_directory(self):
@@ -114,7 +96,7 @@ class ViewPostHandler(llhandler.LLHandler):
 		
 	def view_post(self,slug):
 		post = LLArticle.all().filter('slug =',slug).get()
-		#post = LLArticle.get_by_id(int(post_id))
+
 		if post is not None:
 			markdown_html = markdown2.markdown(post.text)
 			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
@@ -123,7 +105,7 @@ class ViewPostHandler(llhandler.LLHandler):
 			self.set_flash('No existe ese post',flash_type='errorFlash')
 			self.redirect('/posts/')
 
-class EditPostHandler(llhandler.LLHandler):
+class EditPostHandler(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
 		
@@ -135,7 +117,8 @@ class EditPostHandler(llhandler.LLHandler):
 		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
-			values = {'post':post,'from':self.request.path}
+			markdown_html = markdown2.markdown(post.text)
+			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('edit_post',template_values=values)
 		else:
 			self.set_flash('No existe ese post',flash_type='errorFlash')
@@ -143,10 +126,6 @@ class EditPostHandler(llhandler.LLHandler):
 			
 	def post(self,slug):
 		self.auth_check()
-		#if not self.current_account.is_administrator:
-		#	self.set_flash('No tienes autorización para editar el post',flash_type='errorFlash')
-		#	self.redirect('/posts/')
-		#	return
 		self.edit_post(slug)
 	
 	def edit_post(self,slug):

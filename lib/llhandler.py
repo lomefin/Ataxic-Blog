@@ -32,83 +32,6 @@ from google.appengine.api import datastore_errors
 from google.appengine.ext.webapp import template
 from model.models import *
 
-class LLGAEHandler(webapp.RequestHandler):
-	def __init__(self):
-		self.flash = ''
-		#self.auth_check()
-		
-	def auth_check(self):
-		user = users.get_current_user()
-		
-		#Check if the user is in @mekuido.info
-		if user:
-			emailDomain = user.email().split("@")
-			if emailDomain[1] == "ataxic.org":
-				self.session = get_current_session()
-				self.current_account = None
-				
-				if self.session.has_key("current_account"):
-					self.current_account = self.session["current_account"]	
-				else:
-					self.current_account = LLAccount.all().filter('email = ',user.email()).get()
-					
-					if not self.current_account:
-						self.current_account = LLAccount()
-						self.current_account.email = user.email()
-						#self.current_account.put()
-					#Setting the session data
-					self.current_account.last_entrance = datetime.datetime.now()
-					self.current_account.put()
-					self.session["current_account"] = self.current_account
-					#self.session["current_account"].put()
-					time.sleep(1)
-				return True
-			else:
-				self.redirect('/admin/unlog/')
-				#self.redirect('/unlogFromGoogleAcount')
-				
-		else:
-			self.redirect(users.create_login_url(self.request.uri))
-        
-			
-	def render(self,pagename,template_values=None):
-		self.logout_url = '/admin/unlog/'
-		self.user_mail = ''
-		if users.get_current_user():
-			self.user_mail = users.get_current_user().email()
-		
-		if not template_values:
-			template_values = {'user_mail':self.user_mail,'logout_url': self.logout_url}
-		else:
-			template_values['logout_url'] = self.logout_url
-			template_values['user_mail'] = self.user_mail
-		try:
-			if self.current_account is not None:
-				template_values['current_account'] = self.current_account
-		except:
-			pass
-		path = os.path.join(self.base_directory(), 'views/'+pagename+'.html')
-		self.response.out.write(template.render(path, template_values))
-	
-	def render_specific(self,pagename,template_values=None):
-		#self.wr(os.path.dirname(__file__))
-		path = os.path.join(self.base_directory(), '../../templates/'+pagename)
-		#self.wr(path)
-		self.response.out.write(template.render(path, template_values))
-	
-	def wr(self,text):
-		self.response.out.write(text)
-	
-	def param(self,param_name):
-		return self.request.get(param_name)
-	
-	def get(self):
-		self.auth_check()
-		self.internal_get()
-	
-	def post(self):
-		self.auth_check()
-		self.internal_post()
 
 class LLHandler(webapp.RequestHandler):
 	def __init__(self):
@@ -214,3 +137,64 @@ class LLHandler(webapp.RequestHandler):
 		self.internal_post()
 		
 
+
+
+class LLGAEHandler(LLHandler):
+	def __init__(self):
+		self.flash = ''
+		#self.auth_check()
+		
+	def auth_check(self):
+		user = users.get_current_user()
+		
+		#Check if the user is in @mekuido.info
+		if user:
+			emailDomain = user.email().split("@")
+			if emailDomain[1] == "ataxic.org":
+				self.session = get_current_session()
+				self.current_account = None
+				
+				if self.session.has_key("current_account"):
+					self.current_account = self.session["current_account"]	
+				else:
+					self.current_account = LLAccount.all().filter('email = ',user.email()).get()
+					
+					if not self.current_account:
+						self.current_account = LLAccount()
+						self.current_account.email = user.email()
+						#self.current_account.put()
+					#Setting the session data
+					self.current_account.last_entrance = datetime.datetime.now()
+					self.current_account.put()
+					self.session["current_account"] = self.current_account
+					#self.session["current_account"].put()
+					time.sleep(1)
+				return True
+			else:
+				self.redirect('/admin/unlog/')
+				#self.redirect('/unlogFromGoogleAcount')
+				
+		else:
+			self.redirect(users.create_login_url(self.request.uri))
+        
+			
+	def render(self,pagename,template_values=None):
+		self.logout_url = '/admin/unlog/'
+		self.user_mail = ''
+		if users.get_current_user():
+			self.user_mail = users.get_current_user().email()
+		
+		if not template_values:
+			template_values = {'user_mail':self.user_mail,'logout_url': self.logout_url}
+		else:
+			template_values['logout_url'] = self.logout_url
+			template_values['user_mail'] = self.user_mail
+		try:
+			if self.current_account is not None:
+				template_values['current_account'] = self.current_account
+		except:
+			pass
+		path = os.path.join(self.base_directory(), 'views/'+pagename+'.html')
+		self.response.out.write(template.render(path, template_values))
+	
+	

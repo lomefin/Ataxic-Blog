@@ -32,14 +32,14 @@
 					<div class="clearfix">
 						<label for="title">Título:</label>
 						<div class="input">
-							<input class="xlarge" type="text" name="title" id="title"/>
+							<input class="xlarge" type="text" name="title" id="title" required="required"/>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="span4">
-					<label for="content">Cuerpo del mensaje</a>
+				<div class="input span6">
+					<label for="content">Cuerpo del mensaje <a href="http://daringfireball.net/projects/markdown/">(Markdown)</a></label>
 				</div>
 			</div>
 			<div class="row">
@@ -48,26 +48,22 @@
 				</div>
 			</div>
 			<div clas="row">
-				<div class="span8">
-					<div class="clearfix">
-						<label for="publish">
-							<input type="checkbox" name="publish" value="true" />
-							<span>Publicar</span>
-						</label>
+				<div class="span12">
+					<div class="input">
+						<ul class="inputs-list">
+							<label>
+								<input type="checkbox" name="publish" value="true" />
+								<span>Este artículo está lo suficientemente bueno para ser publicado.</span>
+							</label>
+						</ul>
 					</div>
-			
 					<div class="actions">					
 						<input type="submit" value="Crear Artículo" class="btn primary" />
 					</div>
 				</div>						
 			</div>
 		</form>
+	</div>
 </div>
-{% endblock content %}
 
-<div class="clearfix">
-	        <label for="replier_name">Nombre:</label>
-	        <div class="input">
-	          <input type="text" name="replier_name" />
-	        </div>
-	      </div>
+{% endblock content %}
