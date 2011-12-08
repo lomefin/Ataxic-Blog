@@ -5,10 +5,10 @@
 <head>
 	<script type="text/javascript" src="http://use.typekit.com/edk2fuu.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-	<!--link type="text/css" href="/css/1140.css" rel="stylesheet" /-->
-	<!--link type="text/css" href="/css/main_template.css" rel="stylesheet" /-->
 	<link rel="stylesheet/less" href="/css/less/bootstrap/bootstrap.less">
 	<script src="/js/less-1.1.5.min.js"></script>
+	<link href="/css/prettify.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="/js/prettify/prettify.js"></script>
 	{% block css_requires %}{% endblock css_requires %}
 	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
 	<script type="text/javascript">
@@ -24,24 +24,9 @@
 		  })();
 
 	</script>
-	<!-- Include required JS files -->
-	<script type="text/javascript" src="/js/sh/shCore.js"></script>
 	
-	<!--
-	    At least one brush, here we choose JS. You need to include a brush for every 
-	    language you want to highlight
-	-->
-	<script type="text/javascript" src="/js/sh/shBrushRuby.js"></script>
-	<script type="text/javascript" src="/js/sh/shBrushPython.js"></script>
-	<script type="text/javascript" src="/js/sh/shBrushXML.js"></script>
-	
-	<!-- Include *at least* the core style and default theme -->
-	<link href="/css/sh/shCore.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sh/shThemeDefault.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sh/shCoreRDark.css" rel="stylesheet" type="text/css" />
-	<link href="/css/docs.css" rel="stylesheet" type="text/css" />
 </head>
-<body style="padding-top: 40px;">
+<body style="padding-top: 45px;" onload="prettyPrint()">
 	 <div class="topbar" data-scrollspy="scrollspy" > 
       <div class="topbar-inner"> 
         <div class="container"> 
@@ -51,10 +36,8 @@
             <li><a href="/links/">Links</a></li> 
             <li><a href="/posts/">Artículos</a></li> 
             <li><a href="/about/">Miembros</a></li> 
-            <li>
-            	{%if login_url %}<a href="{{login_url}}">Entrar</a>{% endif %}
-		  		{%if logged_user %}<a href="/logout/">{{logged_user.email}} (Salir)</a>{% endif %}
-		  	</li>
+            <li>{%if login_url %}<a href="{{login_url}}">Entrar</a>{% endif %}
+		  		{%if logged_user %}<a href="/logout/">Salir</a>{% endif %}</li>
           </ul> 
         </div> 
       </div> 
@@ -65,7 +48,7 @@
 		<div class="content"> 
 		 	{% if flash %}
 		 	<div id="flashContainer" class="{{flash_type}} row">
-		 		<div class="span16last">{{flash}}</div>
+		 		<div class="alert-message">{{flash}}</div>
 		 	</div>
 		 	{%endif%}
 		    <div class="row"> 
@@ -87,8 +70,6 @@
 <script type="text/javascript" src="/js/mootools-more-1.3.1.1.js"></script>
 {% block js_requires%}{%endblock js_requires%}
 {% block js_activities%}{%endblock js_activities%}
-<script type="text/javascript">
-     SyntaxHighlighter.all()
-</script>
+
 </html>	
 	

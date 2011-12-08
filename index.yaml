@@ -13,6 +13,12 @@ indexes:
 - kind: LLPostedElement
   properties:
   - name: class
+  - name: date_created
+    direction: desc
+
+- kind: LLPostedElement
+  properties:
+  - name: class
   - name: is_active
   - name: date_created
     direction: desc

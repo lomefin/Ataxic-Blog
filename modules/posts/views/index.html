@@ -63,7 +63,7 @@
 		{% for message in messages %}
 			{% if message.is_active or logged_user.is_administrator%}
 			<h3><a href="/posts/{{message.slug}}">{{message.title}}</a></h3>
-			<div class="textContent">{{message.text|truncatewords_html:120|removetags:"a"}}</div>
+			<div class="textContent">{{message.text|truncatewords_html:120|removetags:"a iframe"}}</div>
 			<div><a href="/posts/{{message.slug}}">Seguir leyendo</a></div>
 			<div class="bottomSeparator"></div>	
 			{% endif %}

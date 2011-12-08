@@ -2,7 +2,9 @@
 {% block content %}
 <div class="row">
   <div class="span10">
-    <h1>{{post.title}}</h1>
+    <div class="page-header">
+      <h1>{{post.title}}</h1>
+    </div>
   </div>
   {% if logged_user.is_administrator %}
   <div class="span2 last"><a href="/posts/{{post.slug}}/edit" class="btn large primary">Editar</a></div>
@@ -15,21 +17,36 @@
 </div>
 <div class="row">
   
-  <div class="textContent span10">
+  <div class="textContent span12">
     <article>
       {{post.text}}
     </article>
   </div>
-  <div class="span3 last">
+  
+</div>
+<div clas="row">
+  <div class="span8 last">
     <form action="/replies/add" method="post">
-	<fieldset><legend>Agregar Comentario</legend>
-	<input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
-	<input type="hidden" name="sent_from" value="{{from}}" />
-	<label for="replier_name">Nombre:</label><input type="text" name="replier_name" /><br/>
-	<label for="reply">Respuesta (no más de 500 caracteres):</label>
-	<br/><textarea name="reply" cols="20" rows="20"></textarea><br/>
-	<input type="submit" value="Responder">
-	</fieldset>
+    <fieldset><legend>Agregar Comentario</legend>
+      <input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
+      <input type="hidden" name="sent_from" value="{{from}}" />
+      <div class="clearfix">
+        <label for="replier_name">Nombre:</label>
+        <div class="input">
+          <input type="text" name="replier_name" />
+        </div>
+      </div>
+      <div class="clearfix">
+        <label for="reply">Respuesta (no más de 500 caracteres):</label>
+        <div class="input">
+          <textarea name="reply" class="xlarge" rows="3" ></textarea>
+        </div>
+      </div>
+      <div class="actions">
+        <input type="submit" value="Responder" class="btn primary">
+        <button type="reset" class="btn">Cancelar</button>
+      </div>
+    </fieldset>
     </form>
   </div>
 </div>
