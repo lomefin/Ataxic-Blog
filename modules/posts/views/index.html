@@ -15,11 +15,6 @@
       $("#markItUp").markItUp(mySettings);
    	});
 	
-	var collapsible = new Fx.Slide($('newMessageForm'), {
-        duration: 50,
-        transition: Fx.Transitions.linear
-	});
-	//collapsible.toggle();
 
 		</script> 
 {% endblock js_activities %}
@@ -36,15 +31,15 @@
 			</div>
 			{% endif %}
 		</div>
-		{% if not messages %}
+		{% if not articles %}
 			<p>Bu, no hay artículos.</p>
 		{% endif %}
 	</div>
 	<div class="span16" id="messageList">
-		{% for message in messages %}
-			{% if message.is_active or logged_user.is_administrator%}
-			<h3><a href="/posts/{{message.slug}}">{{message.title}}</a></h3>
-			<div class="textContent">{{message.text|truncatewords_html:120|removetags:"a iframe"}}</div>
+		{% for article in articles %}
+			{% if article.is_active or logged_user.is_administrator%}
+			<h3><a href="/posts/{{message.slug}}">{{article.title}}</a></h3>
+			<div class="textContent">{{article.markdown_html|truncatewords_html:120|removetags:"a iframe pre"}}</div>
 			<div><a href="/posts/{{message.slug}}">Seguir leyendo</a></div>
 			<div class="bottomSeparator"></div>	
 			{% endif %}

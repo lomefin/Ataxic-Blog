@@ -50,9 +50,10 @@ class PostHandler(llhandler.LLHandler):
 		except:
 			pass
 		if LLArticle.all().count() > 0:
-			messages = LLArticle.all().order('-date_created').fetch(10,offset)
-			
-			values = {'messages':messages,'offset':offset+10,'is_offset':len(messages)>10}
+			articles = LLArticle.all().order('-date_created').fetch(10,offset)
+			for article in articles:
+				article.markdown_html = markdown2.markdown(article.text,extras={"code-friendly":None,"html-classes":{"pre":"prettyprint"}})
+			values = {'articles':articles,'offset':offset+10,'is_offset':len(articles)>10}
 			self.render('index',template_values=values)
 		else:
 			self.render('index')
@@ -117,7 +118,7 @@ class EditPostHandler(llhandler.LLGAEHandler):
 		post = LLArticle.all().filter('slug =',slug).get()
 		#post = LLArticle.get_by_id(int(post_id))
 		if post is not None:
-			markdown_html = markdown2.markdown(post.text,extras=["code-friendly"])
+			markdown_html = markdown2.markdown(post.text,extras={"code-friendly":None,"html-classes":{"pre":"prettyprint"}})
 			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('edit_post',template_values=values)
 		else:
