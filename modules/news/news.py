@@ -85,7 +85,7 @@ class AddNewsHandler(llhandler.LLGAEHandler):
 			message = LLNews()
 			message.title = self.request.get('title')
 			message.text = self.request.get('content')
-			right_now = datetime.datetime.now().strftime("%Y%m%d")
+			right_now = ""
 			message.slug = defaultfilters.slugify(right_now + message.title)
 			message.creator = self.current_account
 			message.short_url = bitly_url("/news/"+message.slug)
