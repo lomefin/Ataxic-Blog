@@ -16,7 +16,7 @@
 
 <div class="row">
   {% if news %}
-  <div class="span5" style="border-right: 1px solid #EEE" >
+  <div class="span5" >
     <h1>Noticias</h1>
     {% for element in news %}
       <h4><a href="/news/{{element.slug}}">{{element.title}}</a></h4>
@@ -34,7 +34,7 @@
     {%endif%} 
   </div>
   {%endif%}
-  <div class="{%if news %}span10{%else%}span16{%endif%}">
+  <div class="{%if news %}span10{%else%}span16{%endif%}" {%if news%} style="border-left: 1px solid #EEE"{%endif%}>
     <h1>Artículos</h1>
     {% for element in posts %}
   	  {% if element.is_active or logged_user.is_administrator%}
