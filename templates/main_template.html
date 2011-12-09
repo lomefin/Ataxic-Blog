@@ -51,8 +51,8 @@
     <div class="container" style="padding-top: 5px">
 		<div class="content"> 
 		 	{% if flash %}
-		 	<div id="flashContainer" class="{{flash_type}} row">
-		 		<div class="alert-message">{{flash}}</div>
+		 	<div id="flashContainer" class="row">
+		 		<div class="alert-message {{flash_type}}">{{flash}}</div>
 		 	</div>
 		 	{%endif%}
 		    <div class="row"> 

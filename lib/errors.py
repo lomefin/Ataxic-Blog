@@ -38,6 +38,7 @@ class NotFoundHandler(llhandler.LLHandler):
 	
 	def get(self):
 		self.render_specific('not_found')
+		self.response.set_status(404)
 
 	def render_specific(self,pagename,template_values=None):
 		#self.wr(os.path.dirname(__file__))

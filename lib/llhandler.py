@@ -40,7 +40,7 @@ class LLHandler(webapp.RequestHandler):
 		self.log_count = 1
 		#self.auth_check()
 	
-	def set_flash(self,flash,flash_type='normalFlash'):
+	def set_flash(self,flash,flash_type='info'):
 		if(self.session):
 			self.session['flash'] = flash
 			self.session['flash_type'] = flash_type

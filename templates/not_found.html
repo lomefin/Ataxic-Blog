@@ -1,8 +1,22 @@
 ﻿{% extends "main_template.html" %}
 {% block content %}
-<h1>404 / No Encontrado</h1>
-<div style="text-align:center">
-	<img src="/img/7001.jpg" width="300"/>
+<div class="row">
+	<div class="page-header">
+		<h1>Error 404 <small> No encontrado</small></h1>
+	</div>
 </div>
-<p>Lo que estas buscando no ha sido posible encontrarlo, nuestros técnicos están tratando de averiguar que pasó. (Aunque no les tengas mucha fé)</p>
+<div class="row">
+	
+	<ul class="media-grid span10 offset3">
+		<a href="/">
+			<img src="/img/7001.jpg" alt="Monos randomeando" class="span10"  />
+		</a>
+	</ul>
+	<div class="span3"></div>
+</div>
+<div class="alert-message block-message info">
+	<p>Lo que estás buscando no ha sido posible encontrarlo, nuestros técnicos están tratando de averiguar qué pasó. (Aunque 
+	no les tengas mucha fé)</p>
+</div>
+
 {% endblock content %}

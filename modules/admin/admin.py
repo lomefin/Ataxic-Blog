@@ -50,26 +50,57 @@ class PostedElementDeleteConfirmation(llhandler.LLGAEHandler):
 		return os.path.dirname(__file__)
 	
 	def internal_get(self,element_type,key):
-		element_key = LLPostedElement.get(db.Key(encoded=key))
-		values = { 'element' : element_key, 'element_type':element_type}
+		element = LLPostedElement.get(db.Key(encoded=key))
+		values = { 'element' : element, 'element_type':element_type}
 		self.render('confirm_delete',template_values=values)
 	
 	def get(self,element_type,key):
 		self.auth_check()
 		self.internal_get(element_type,key)
+	
+	def post(self,element_type,key):
+		self.auth_check()
+		self.internal_post(element_type,key)
+
+	def internal_post(self, element_type, key):
+		element = LLPostedElement.get(db.Key(encoded=key))
+		element.delete()
+		self.set_flash('El elemento ha sido <strong>eliminado para siempre</strong>.')
+		self.redirect('/admin/')
+		
+
+
 
 class PostedElementActiveStatusModifier(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
 	
 	def internal_get(self,element_type,key):
-		element_key = LLPostedElement.get(db.Key(encoded=key))
-		values = { 'element' : element_key, 'element_type':element_type}
+		element = LLPostedElement.get(db.Key(encoded=key))
+		values = { 'element' : element, 'element_type':element_type}
 		self.render('confirm_delete',template_values=values)
 	
 	def get(self,element_type,key):
 		self.auth_check()
 		self.internal_get(element_type,key)
+	
+	def post(self,element_type,key,status):
+		self.auth_check()
+		self.internal_post(element_type,key,status)
+
+	def internal_post(self, element_type, key,status):
+		element = LLPostedElement.get(db.Key(encoded=key))
+		if element.is_active == (status == 'activate'):
+			self.set_flash('El elemento ya esta en el estado solicitado','warning')
+			self.redirect('/admin/')
+			return
+		element.is_active = (status == 'activate')
+		try:
+			element.put()
+			self.set_flash('El elemento ha sido cambiado de estado.','success')
+		except:
+			self.set_flash('No se pudo actualizar el elemento.','error')
+		self.redirect('/admin/')
 
 def main():
   application = webapp.WSGIApplication([('/admin/articles/', ArticleAdmin),
