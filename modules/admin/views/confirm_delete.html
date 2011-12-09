@@ -1,0 +1,26 @@
+{% extends "../../../templates/admin_template.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="page-header">
+		<h1>Eliminación de elemento</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="alert-message block-message warning">
+		<p><strong>Atención, estás a punto de eliminar un Elemento Publicable</strong></p>
+		<p>Si borras el elemento <em>no es posible recuperarlo</em> puedes considerar <strong>desactivar</strong> el elemento en vez de borrarlo.</p>
+		<div class="alert-actions">
+			
+			<form method="post">
+				<input type="submit" class="btn danger" value="Eliminar" />
+			</form>
+			<a href="/admin/" class="btn primary">Volver</a>
+			<form method="post" action="/admin/{{element_type}}/{{element.key}}/deactivate">
+				<input type="submit" class="btn info" value="Desactivar" />
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
