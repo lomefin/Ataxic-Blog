@@ -50,7 +50,7 @@ class PostedElementDeleteConfirmation(llhandler.LLGAEHandler):
 		return os.path.dirname(__file__)
 	
 	def internal_get(self,element_type,key):
-		element_key = LLPostedElement.get(Key(encoded=key))
+		element_key = LLPostedElement.get(db.Key(encoded=key))
 		values = { 'element' : element_key, 'element_type':element_type}
 		self.render('confirm_delete',template_values=values)
 	
@@ -63,7 +63,7 @@ class PostedElementActiveStatusModifier(llhandler.LLGAEHandler):
 		return os.path.dirname(__file__)
 	
 	def internal_get(self,element_type,key):
-		element_key = LLPostedElement.get(Key(encoded=key))
+		element_key = LLPostedElement.get(db.Key(encoded=key))
 		values = { 'element' : element_key, 'element_type':element_type}
 		self.render('confirm_delete',template_values=values)
 	
