@@ -17,6 +17,8 @@ handlers:
   static_dir: static/
 - url: /scripts/(\D*?)
   script: modules/maintainance/\1.py
+- url: /admin/(\D*?)/.*
+  script: modules/admin/admin.py
 - url: /(\D*?)/.*  
   script: modules/\1/\1.py
 - url: /.*

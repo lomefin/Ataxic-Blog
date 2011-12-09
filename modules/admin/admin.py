@@ -18,37 +18,37 @@ import cgi
 import datetime
 import os
 import lib
-#import controller.sessions.SessionManager
-#from controller.appengine_utilities.sessions import Session
-#from controller.appengine_utilities.flash import Flash
-#from controller.appengine_utilities.cache import Cache
+import string
+import sys
+
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext import db
 from google.appengine.api import datastore_errors
 from google.appengine.ext.webapp import template
-from lib import mkhandler
+from lib import errors
+from lib import llhandler
+from lib import slugify
+from model.models import *
+from lib import markdown2
 
-class AdminHandler(mkhandler.MKGAEHandler):
-	
+class PostAdmin(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
-	
-	
+
 	def internal_get(self):
-		self.render('index')
-		#self.base_auth()
-		#self.get_internal()
-		#user_logout = users.create_logout_url("/eventos/")
-		#self.response.out.write("<a href=\"%s\">Logout</a>." %user_logout)
+		articles = LLArticle.all().order('-date_created')
+		values = {'articles':articles}
+		self.render('post_list',template_values=values)
 	
 	def internal_post(self):
-		self.internal_get()
+		self.render('post_list')
 
 
 def main():
-  application = webapp.WSGIApplication([('/admin/.*', AdminHandler)],
+  application = webapp.WSGIApplication([('/admin/posts/.*', PostAdmin),
+  										('.*',lib.errors.NotFoundHandler)],
                                        debug=True)
   util.run_wsgi_app(application)
 

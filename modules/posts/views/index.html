@@ -22,12 +22,12 @@
 <div class="row" id="PostsRow" style="margin-top:20px">
 	<div class="span16">
 		<div class="row">
-			<div class="span8">
+			<div class="page-header">
 				<h1>Artículos</h1>
 			</div>
 			{% if logged_user.is_administrator %}
 			<div class="span4">
-				<a href="/posts/_new" class="btn large primary">Crear nuevo mensaje</a>
+				<a href="/posts/_new" class="btn large primary">Crear nuevo artículo</a>
 			</div>
 			{% endif %}
 		</div>
