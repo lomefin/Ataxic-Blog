@@ -3,16 +3,16 @@
 <div class="row">
   <div class="span10">
     <div class="page-header">
-      <h1>{{post.title}}</h1>
+      <h1>{{news.title}}</h1>
     </div>
   </div>
   {% if logged_user.is_administrator %}
-  <div class="span2 last"><a href="/posts/{{post.slug}}/edit" class="btn large primary">Editar</a></div>
+  <div class="span2"><a href="/news/{{news.slug}}/edit" class="btn large primary">Editar</a></div>
   {% endif %}
 </div>
 <div class="row">
   <div class="span5 last">
-    <small>Publicado el {{post.date_created|date:"d/m/Y"}} por {{post.creator.name}}</small>
+    <small>Publicado el {{news.date_created|date:"d/m/Y"}} por {{news.creator.name}}</small>
   </div>
 </div>
 <div class="row">
@@ -41,7 +41,7 @@
   <div class="span8 last">
     <form action="/replies/add" method="post">
     <fieldset><legend>Agregar Comentario</legend>
-      <input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
+      <input type="hidden" name="posted_element_id" value ="{{news.key.id}}" />
       <input type="hidden" name="sent_from" value="{{from}}" />
       <div class="clearfix">
         <label for="replier_name">Nombre:</label>
@@ -65,7 +65,7 @@
 </div>
 <div class="row">
   <div class="span8">
-    <a href="/posts/">Volver a los artículos</a>
+    <a href="/news/">Volver a las noticias</a>
   </div>
 </div>
 

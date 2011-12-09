@@ -53,6 +53,24 @@ class ArticleAdmin(llhandler.LLGAEHandler):
 	def internal_post(self):
 		self.render('post_list')
 
+class NewsAdmin(llhandler.LLGAEHandler):
+	def base_directory(self):
+		return os.path.dirname(__file__)
+
+	def internal_get(self):
+		news = LLNews.all().order('-date_created')
+		values = {'news':news}
+		self.render('news_list',template_values=values)
+
+class LinkAdmin(llhandler.LLGAEHandler):
+	def base_directory(self):
+		return os.path.dirname(__file__)
+
+	def internal_get(self):
+		links = LLLinks.all().order('-date_created')
+		values = {'links':news}
+		self.render('link_list',template_values=values)	
+
 class PostedElementDeleteConfirmation(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)

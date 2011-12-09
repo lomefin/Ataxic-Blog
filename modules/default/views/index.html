@@ -15,37 +15,37 @@
 
 
 <div class="row">
-  
-  <div class="span12 last">
+  {% if news %}
+  <div class="span5" style="border-right: 1px solid #EEE" >
+    <h1>Noticias</h1>
+    {% for element in news %}
+      <h4><a href="/news/{{element.slug}}">{{element.title}}</a></h4>
+    {% endfor %}
+    <a href="/news/" class="btn primary">Ver todas las noticias</a>
+    {% if links %}
+      <div style="margin-top: 1em"></div>
+      <h1>Links</h1>
+      <ul>
+      {%for element in links%}
+        <li><a href="{{element.url}}" target="ataxic_linkview">{{element.title}} <img src="/img/ExternalLinkIcon.gif"/></a></li>
+      {%endfor%}  
+      </ul>
+      <a href="/links/" class="btn primary">Ver todos los links</a> 
+    {%endif%} 
+  </div>
+  {%endif%}
+  <div class="{%if news %}span10{%else%}span16{%endif%}">
     <h1>Artículos</h1>
     {% for element in posts %}
   	  {% if element.is_active or logged_user.is_administrator%}
-  	  <h3><a href="/posts/{{element.slug}}">{{element.title}}</a></h3>
+  	  <h2><a href="/posts/{{element.slug}}">{{element.title}}</a></h2>
   	  <p>{{element.text|truncatewords_html:20|removetags:"img"}}</p>
   	  <p><a href="/posts/{{element.slug}}">Leer más de {{element.title}}</a></p>
   	  {%endif%}
     {% endfor %}
+    <a href="/articles/" class="btn large primary">Ver todos los artículos</a>
   </div>
   
-</div>
-<div class="row">
-  <div class="span9">
-  {% if news %}
-  <h1>Noticias</h1>
-  {% for element in news %}
-	  <h2><a href="/news/">{{element.title}}</a></h2>
-	  <p>{{element.text|truncatewords_html:20}}</p>
-  {% endfor %}
-  {% endif %}
-  </div>
-  <div class="span3 last">
-	{% if links %}
-  <h1>Links</h1>
-	{%for element in links%}
-		<p><a href="{{element.url}}" target="leoluartenet_linkview">{{element.title}} <img src="/img/ExternalLinkIcon.gif"/></a></p>
-	{%endfor%}	
-  {%endif%}	
-	</div>
 </div>
 
 {% endblock content %}

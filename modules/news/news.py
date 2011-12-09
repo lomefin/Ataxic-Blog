@@ -55,22 +55,6 @@ class NewsHandler(llhandler.LLHandler):
 			self.render('index',template_values=values)
 		else:
 			self.render('index')
-		
-	def internal_post(self):
-		try:
-			from django.template import defaultfilters
-			
-			message = LLNews()
-			message.title = self.request.get('title')
-			message.text = "<p>" + string.replace(cgi.escape(self.request.get('content')),'\n','</p><p>') + "</p>"
-			right_now = datetime.datetime.now().strftime("%Y%m%d")
-			message.slug = defaultfilters.slugify(right_now + message.title)
-			message.creator = self.current_account
-			message.put()
-			self.set_flash('Noticia agregada ('+right_now+")")
-		except:
-			self.set_flash('No se pudo agregar la noticia',flash_type='errorFlash')
-		self.redirect('/news/')
 
 class AddNewsHandler(llhandler.LLGAEHandler):
 	
@@ -86,7 +70,7 @@ class AddNewsHandler(llhandler.LLGAEHandler):
 			
 			message = LLNews()
 			message.title = self.request.get('title')
-			message.text = "<p>" + string.replace(cgi.escape(self.request.get('content')),'\n','</p><p>') + "</p>"
+			message.text = self.request.get('content')
 			right_now = datetime.datetime.now().strftime("%Y%m%d")
 			message.slug = defaultfilters.slugify(right_now + message.title)
 			message.creator = self.current_account
@@ -102,11 +86,11 @@ class ViewNewsHandler(llhandler.LLHandler):
 		return os.path.dirname(__file__)
 	
 	def internal_get(self,slug):
-		post = LLNews.all().filter('slug =',slug).get()
+		news = LLNews.all().filter('slug =',slug).get()
 
-		if post is not None:
-			markdown_html = markdown2.markdown(post.text)
-			values = {'post':post,'from':self.request.path,'markdown_html':markdown_html}
+		if news is not None:
+			markdown_html = markdown2.markdown(news.text)
+			values = {'news':news,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('view',template_values=values)
 		else:
 			self.set_flash('No existe esa noticia',flash_type='errorFlash')
