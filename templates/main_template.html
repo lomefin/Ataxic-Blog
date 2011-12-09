@@ -31,7 +31,7 @@
 	
 </head>
 <body style="padding-top: 40px;" onload="prettyPrint()">
-	 <div class="topbar" data-scrollspy="scrollspy" > 
+	 <div class="topbar" id="topbar" data-scrollspy="scrollspy" > 
       <div class="topbar-inner"> 
         <div class="container"> 
           <a class="brand" href="/">Ataxic</a> 
@@ -40,9 +40,22 @@
             <li><a href="/links/">Links</a></li> 
             <li><a href="/posts/">Artículos</a></li> 
             <li><a href="/about/">Miembros</a></li> 
-            <li>{%if login_url %}<a href="{{login_url}}">Entrar</a>{% endif %}
-		  		{%if logged_user %}<a href="/logout/">Salir</a>{% endif %}</li>
-          </ul> 
+          </ul>
+          <ul class="nav secondary-nav">
+          	{%if login_url %}
+            <li><a href="{{login_url}}">Entrar</a></li>
+            {% endif %}
+		  	{%if logged_user %}
+		  	<li class="dropdown">
+			  	<a class="dropdown-toggle">{{logged_user.email}}</a>
+			  	<ul class="dropdown-menu">
+			  		<li><a href="/admin/">Panel de control</a></li>
+			  		<li class="divider"></li>
+			  		<li><a href="/logout/">Salir</a></li>
+		  		</ul>
+		  	</li>
+		  	{% endif %}
+          </ul>
         </div> 
       </div> 
     </div> 
@@ -69,8 +82,15 @@
 </body>
 <script type="text/javascript" src="/js/mootools-core-1.3.1-full-compat.js"></script>
 <script type="text/javascript" src="/js/mootools-more-1.3.1.1.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap/bootstrap-dropdown.js"></script>
 {% block js_requires%}{%endblock js_requires%}
 {% block js_activities%}{%endblock js_activities%}
-
+<script type="text/javascript"> 
+	$(document).ready(function() {
+      $('#topbar').dropdown()
+   	});
+	
+</script> 
 </html>	
 	
