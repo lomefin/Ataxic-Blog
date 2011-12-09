@@ -74,6 +74,7 @@ class LinkHandler(llhandler.LLHandler):
 			link = LLLink()
 			link.title = self.request.get('title')
 			link.url = self.bitly_url(self.request.get('url'))
+			link.short_url = link.url
 			link.description = cgi.escape(self.request.get('description'))
 			link.creator = self.current_account
 			link.put()

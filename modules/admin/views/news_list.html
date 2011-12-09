@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
 	<div class="page-header">
-		<h1>Artículos</h1>
+		<h1>Noticias</h1>
 	</div>
 </div>
 <table class="bordered-table zebra-striped">
@@ -17,25 +17,25 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for article in articles %}
+		{% for news in news_list %}
 		<tr>
-			<td><a href="/posts/{{article.slug}}" target="ataxic">{{article.title}}</a></td>
-			<td>{{article.creator.name}}</td>
-			<td>{{article.date_created|date:"d/m/Y"}}</td>
+			<td><a href="/news/{{news.slug}}" target="ataxic">{{news.title}}</a></td>
+			<td>{{news.creator.name}}</td>
+			<td>{{news.date_created|date:"d/m/Y"}}</td>
 			<td>
-				{%if article.is_active%}
+				{%if news.is_active%}
 				<span class="label success">Disponible</span>
 				{%else%}
 				<span class="label important">Inactiva</span>
 				{%endif%}
 			</td>
 			<td>
-				<a href="/posts/{{article.slug}}/edit" target="ataxic" class="btn small ">Editar</a>
-				<a href="/admin/articles/{{article.key}}/remove" target="ataxic" class="btn danger small ">Eliminar</a>
+				<a href="/news/{{news.slug}}/edit" target="ataxic" class="btn small ">Editar</a>
+				<a href="/admin/news/{{news.key}}/remove" target="ataxic" class="btn danger small ">Eliminar</a>
 				{%if article.is_active%}
-				<a href="/admin/articles/{{article.key}}/deactivate" target="ataxic" class="btn small info">Desactivar</a>
+				<a href="/admin/news/{{news.key}}/deactivate" target="ataxic" class="btn small info">Desactivar</a>
 				{%else%}
-				<a href="/admin/articles/{{article.key}}/activate" target="ataxic" class="btn info small "> &nbsp;Activar </a>
+				<a href="/admin/news/{{news.key}}/activate" target="ataxic" class="btn info small "> &nbsp;Activar </a>
 				{%endif%}
 			</td>
 		</tr>

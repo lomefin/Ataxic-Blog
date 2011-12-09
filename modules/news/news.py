@@ -19,10 +19,7 @@ import datetime
 import os
 import lib
 import string
-#import controller.sessions.SessionManager
-#from controller.appengine_utilities.sessions import Session
-#from controller.appengine_utilities.flash import Flash
-#from controller.appengine_utilities.cache import Cache
+import sys
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
@@ -33,6 +30,23 @@ from lib import llhandler
 from lib import errors
 from model.models import *
 from lib import markdown2
+from lib import twitter_wrapper
+
+def bitly_url(url):
+	import urllib
+	from google.appengine.api import urlfetch
+	form_fields = {
+		"login": "lomefin",
+		"apiKey": "R_ecdc45222b96e2c01a7d7f5856c1f589",
+		"longUrl": "http://www.ataxic.org/"+url,
+		"format":"txt"
+	}
+	form_data = urllib.urlencode(form_fields)
+	url = "http://api.bitly.com/v3/shorten?"+str(form_data)
+	
+	result = urlfetch.fetch(url=url,
+                    method=urlfetch.GET)
+	return str(result.content.replace("\n", ""))
 
 class NewsHandler(llhandler.LLHandler):
 	
@@ -74,10 +88,15 @@ class AddNewsHandler(llhandler.LLGAEHandler):
 			right_now = datetime.datetime.now().strftime("%Y%m%d")
 			message.slug = defaultfilters.slugify(right_now + message.title)
 			message.creator = self.current_account
+			message.short_url = bitly_url("/news/"+message.slug)
 			message.put()
 			self.set_flash('Noticia agregada ('+right_now+")")
 		except:
 			self.set_flash('No se pudo agregar la noticia',flash_type='error')
+		#try:
+		twitter_wrapper.tweet(message.title + " " + message.short_url)
+		#except Exception as exc:
+		#	self.set_flash('No se pudo publicar la noticia ('+ str(exc) +')',flash_type='warning')
 		self.redirect('/news/')
 
 class ViewNewsHandler(llhandler.LLHandler):
@@ -89,6 +108,9 @@ class ViewNewsHandler(llhandler.LLHandler):
 		news = LLNews.all().filter('slug =',slug).get()
 
 		if news is not None:
+			if news.short_url is None:
+				news.short_url = bitly_url("/news/"+slug)
+				news.put()
 			markdown_html = markdown2.markdown(news.text)
 			values = {'news':news,'from':self.request.path,'markdown_html':markdown_html}
 			self.render('view',template_values=values)

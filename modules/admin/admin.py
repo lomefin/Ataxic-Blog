@@ -48,10 +48,8 @@ class ArticleAdmin(llhandler.LLGAEHandler):
 	def internal_get(self):
 		articles = LLArticle.all().order('-date_created')
 		values = {'articles':articles}
-		self.render('post_list',template_values=values)
+		self.render('article_list',template_values=values)
 	
-	def internal_post(self):
-		self.render('post_list')
 
 class NewsAdmin(llhandler.LLGAEHandler):
 	def base_directory(self):
@@ -59,7 +57,7 @@ class NewsAdmin(llhandler.LLGAEHandler):
 
 	def internal_get(self):
 		news = LLNews.all().order('-date_created')
-		values = {'news':news}
+		values = {'news_list':news}
 		self.render('news_list',template_values=values)
 
 class LinkAdmin(llhandler.LLGAEHandler):
@@ -67,8 +65,8 @@ class LinkAdmin(llhandler.LLGAEHandler):
 		return os.path.dirname(__file__)
 
 	def internal_get(self):
-		links = LLLinks.all().order('-date_created')
-		values = {'links':news}
+		links = LLLink.all().order('-date_created')
+		values = {'links':links}
 		self.render('link_list',template_values=values)	
 
 class PostedElementDeleteConfirmation(llhandler.LLGAEHandler):
@@ -94,9 +92,6 @@ class PostedElementDeleteConfirmation(llhandler.LLGAEHandler):
 		self.set_flash('El elemento ha sido <strong>eliminado para siempre</strong>.')
 		self.redirect('/admin/')
 		
-
-
-
 class PostedElementActiveStatusModifier(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
@@ -130,6 +125,8 @@ class PostedElementActiveStatusModifier(llhandler.LLGAEHandler):
 
 def main():
   application = webapp.WSGIApplication([('/admin/articles/', ArticleAdmin),
+  										('/admin/news/',NewsAdmin),
+  										('/admin/links/',LinkAdmin),
   										('/admin/(articles|news|link)/(.+?)/remove',PostedElementDeleteConfirmation),
   										('/admin/(articles|news|link)/(.+?)/(activate|deactivate)',PostedElementActiveStatusModifier),
   										('/admin/',AdminStart),

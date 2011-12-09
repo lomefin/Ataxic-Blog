@@ -1,0 +1,46 @@
+{% extends "../../../templates/admin_template.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="page-header">
+		<h1>Links</h1>
+	</div>
+</div>
+<table class="bordered-table zebra-striped">
+	<thead>
+		<tr>
+			<th>Título</th>
+			<th>Autor</th>
+			<th>Creado el</th>
+			<th>Disponible</th>
+			<th colspan="3">Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for link in links %}
+		<tr>
+			<td><a href="/links/{{link.slug}}" target="ataxic">{{link.title}}</a></td>
+			<td>{{link.creator.name}}</td>
+			<td>{{link.date_created|date:"d/m/Y"}}</td>
+			<td>
+				{%if link.is_active%}
+				<span class="label success">Disponible</span>
+				{%else%}
+				<span class="label important">Inactiva</span>
+				{%endif%}
+			</td>
+			<td>
+				<a href="/links/{{link.slug}}/edit" target="ataxic" class="btn small ">Editar</a>
+				<a href="/admin/links/{{link.key}}/remove" target="ataxic" class="btn danger small ">Eliminar</a>
+				{%if article.is_active%}
+				<a href="/admin/links/{{link.key}}/deactivate" target="ataxic" class="btn small info">Desactivar</a>
+				{%else%}
+				<a href="/admin/links/{{link.key}}/activate" target="ataxic" class="btn info small "> &nbsp;Activar </a>
+				{%endif%}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock content %}

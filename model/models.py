@@ -39,6 +39,7 @@ class LLPostedElement(polymodel.PolyModel):
 	date_published = db.DateTimeProperty
 	title = db.StringProperty()
 	slug = SlugProperty(title)
+	short_url = db.StringProperty()
 	
 class LLArticle(LLPostedElement):
 	text = db.TextProperty()
