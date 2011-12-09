@@ -45,7 +45,8 @@ class LLArticle(LLPostedElement):
 	tags = db.StringListProperty()
 
 class LLNews(LLPostedElement):
-	text = db.TextProperty()	
+	text = db.TextProperty()
+	tags = db.StringListProperty()	
 	
 class LLLink(LLPostedElement):
 	description  = db.StringProperty()

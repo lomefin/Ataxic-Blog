@@ -21,5 +21,7 @@ handlers:
   script: modules/admin/admin.py
 - url: /(\D*?)/.*  
   script: modules/\1/\1.py
+- url: /articles/.*
+  script: modules/posts/posts.py
 - url: /.*
   script: modules/default/index.py

@@ -19,7 +19,7 @@
 	<tbody>
 		{% for article in articles %}
 		<tr>
-			<td>{{article.title}}</td>
+			<td><a href="/posts/{{article.slug}}" target="ataxic">{{article.title}}</a></td>
 			<td>{{article.creator.name}}</td>
 			<td>{{article.date_created|date:"d/m/Y"}}</td>
 			<td>
@@ -30,13 +30,12 @@
 				{%endif%}
 			</td>
 			<td>
-				<a href="/posts/{{article.slug}}" target="ataxic" class="btn  small primary">Ver</a>
 				<a href="/posts/{{article.slug}}/edit" target="ataxic" class="btn small ">Editar</a>
 				<a href="/admin/articles/{{article.key}}/remove" target="ataxic" class="btn danger small ">Eliminar</a>
 				{%if article.is_active%}
 				<a href="/admin/articles/{{article.key}}/deactivate" target="ataxic" class="btn small info">Desactivar</a>
 				{%else%}
-				<a href="/admin/articles/{{article.key}}/activate" target="ataxic" class="btn info small ">Activar</a>
+				<a href="/admin/articles/{{article.key}}/activate" target="ataxic" class="btn info small "> &nbsp;Activar </a>
 				{%endif%}
 			</td>
 		</tr>

@@ -1,0 +1,31 @@
+{% extends "../../../templates/admin_template.html" %}
+
+{% block content %}
+<div class="hero-unit">
+	<h1>Administración Ataxic</h1>
+	<p>Esta es la parte escondida de Ataxic, y la que menos desarrollo <em>debería</em> tener. De todas maneras se tiene que ver bonita.</p>
+</div>
+
+<div class="row">
+	<div class="span-one-third">
+		<h1>Articulos</h1>
+		<a href="/admin/articles/" class="btn primary">Administrar Artículos</a>
+	</div>
+	<div class="span-one-third">
+		<h1>Noticias</h1>
+		<a href="/admin/news/" class="btn primary">Administrar Noticias</a>
+	</div>
+	<div class="span-one-third">
+		<h1>Links</h1>
+		<a href="/admin/articles/" class="btn primary">Administrar Links</a>
+	</div>
+</div>
+<div class="row">
+	<div class="span-one-third">
+		<h1>Usuarios</h1>
+		<a href="/admin/users/" class="btn primary">Administrar Usuarios</a>
+	</div>
+</div>
+
+
+{% endblock content %}

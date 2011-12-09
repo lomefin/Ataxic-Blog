@@ -33,6 +33,14 @@ from lib import slugify
 from model.models import *
 from lib import markdown2
 
+class AdminStart(llhandler.LLGAEHandler):
+	def base_directory(self):
+		return os.path.dirname(__file__)
+
+	def internal_get(self):
+		self.render('admin_index')
+	
+
 class ArticleAdmin(llhandler.LLGAEHandler):
 	def base_directory(self):
 		return os.path.dirname(__file__)
@@ -106,6 +114,7 @@ def main():
   application = webapp.WSGIApplication([('/admin/articles/', ArticleAdmin),
   										('/admin/(articles|news|link)/(.+?)/remove',PostedElementDeleteConfirmation),
   										('/admin/(articles|news|link)/(.+?)/(activate|deactivate)',PostedElementActiveStatusModifier),
+  										('/admin/',AdminStart),
   										('.*',lib.errors.NotFoundHandler)],
                                        debug=True)
   util.run_wsgi_app(application)

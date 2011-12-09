@@ -1,0 +1,63 @@
+{% extends "../../../templates/main_template.html" %}
+{% block css_requires %}
+
+<link rel="stylesheet" type="text/css" href="/js/markitup/markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="/js/markitup/markitup/sets/markdown/style.css" />
+{% endblock css_requires %}
+{% block js_requires%}
+
+<script type="text/javascript" src="/js/markitup/markitup/jquery.markitup.js"></script>
+<script type="text/javascript" src="/js/markitup/markitup/sets/markdown/set.js"></script>
+{%endblock js_requires%}
+{% block js_activities %}
+<script type="text/javascript"> 
+	$(document).ready(function() {
+      $("#content").markItUp(mySettings);
+   	});
+	
+</script> 
+{% endblock js_activities %}
+{% block content %}
+<div class="row" id="PostsRow" style="margin-top:20px">
+	<div class="span16">
+		<div class="row">
+			<div class="page-header">
+				<h1>Crear Nueva Noticia</h1>
+			</div>
+	
+		</div>
+		<form action="" method="post" id="newMessageForm">
+			<div class="row">
+				<div class="span4">
+					<label for="title"><h3>Título:</h3></label>
+				</div>
+				<div class="span10">
+					<input class="xlarge" type="text" name="title" id="title" required="required"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4">
+					<label for="content"><h3>Cuerpo de la noticia <small><a href="http://daringfireball.net/projects/markdown/">(Markdown)</a></small></h3></label>
+				</div>
+				<div class="span10">
+					<textarea id="content" name="content"></textarea>
+				</div>
+			</div>
+			<div clas="row">
+				<div class="input">
+					<ul class="inputs-list">
+						<label>
+							<input type="checkbox" name="publish" value="true" />
+							<span>Esta noticia está lo suficientemente completa para ser publicada.</span>
+						</label>
+					</ul>
+				</div>						
+			</div>
+			<div class="actions">					
+				<input type="submit" value="Crear Artículo" class="btn primary offset9" />
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock content %}

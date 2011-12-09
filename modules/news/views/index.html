@@ -1,33 +1,55 @@
 ﻿{% extends "../../../templates/main_template.html" %}
 {% block content %}
 
-<h1>Noticias</h1>
-{% if logged_user.is_administrator %}
-	<h2>Crear nueva noticia</h2>
-	<form action="" method="post">
-		<table>
-			<tr>
-				<th>Titulo</th>
-				<td><input type="text" name="title" /></td>
-			</tr>
-			<tr>
-				<th colspan="2">Cuerpo de la noticia</th>
-			</tr>
-			<tr>
-				<td colspan="2"><textarea cols="50" rows="10" id="newsContent" name="content"></textarea></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type='submit' value='Crear' /></td>
-			</tr>
-		</table>
-	</form>
-{% endif %}
-{% if not messages %}
-	<p>Bu, no hay noticias.</p>
-{% endif %}
-{% for message in messages %}
-	<h3>{{message.title}}</h3>
-	<div>{{message.text}}</div>
-{% endfor %}
+<div class="row" id="PostsRow" style="margin-top:20px">
+	<div class="span16">
+		<div class="row">
+			<div class="page-header">
+				<h1>Noticias</h1>
+			</div>
+			{% if logged_user.is_administrator %}
+			<div class="span4">
+				<a href="/news/_new" class="btn large primary">Crear nueva notica</a>
+			</div>
+			{% endif %}
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="hero-unit">
+			{% if not latest %}
+				<h1>Bu, no hay noticias.</h1>
+				<p>Esperamos tener noticias en el corto plazo</p>
+			{% endif %}
+			<h1>{{latest.title}}</h1>
+			<p>{{latest.markdown_html|truncatewords_html:120|removetags:"a iframe pre"}}</p>
+			<a href="/news/{{latest.slug}}" class="btn primary large">Leer más »</a>
+		</div>
+	</div>
+	{%if tri_news %}
+	<div class="row">
+		{% for news in tri_news %}
+		<div class="span-one-third">
+			<h1>{{news.title}}</h1>
+			<p>{{news.text|truncatewords_html:50|removetags:"a iframe pre"}}</p>
+			<a href="/news/{{news.slug}}" class="btn primary">Leer más »</a>
+		</div>
+		{% endfor %}
+	</div>
+	{%endif%}
+	{% if news_list %}
+	<div class="row">
+		{% for news in news_list %}
+			{% if news.is_active or logged_user.is_administrator%}
+			<h3><a href="/news/{{news.slug}}">{{news.title}}</a></h3>
+			{% endif %}
+		{% endfor %}
+	</div>
+	{% endif %}
+	
+</div>
+
 {% endblock content %}
+
+
+	

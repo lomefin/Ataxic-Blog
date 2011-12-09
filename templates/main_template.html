@@ -31,16 +31,18 @@
 	
 </head>
 <body style="padding-top: 40px;" onload="prettyPrint()">
-	 <div class="topbar" id="topbar" data-scrollspy="scrollspy" > 
+	 <div class="topbar" id="topbar" data-scrollspy="scrollspy" data-dropdown="dropdown" > 
       <div class="topbar-inner"> 
         <div class="container"> 
-          <a class="brand" href="/">Ataxic</a> 
+          <a class="brand" href="/">Ataxic{%block brand_extra%}{%endblock%}</a> 
+          {% block menu_content %}
           <ul class="nav"> 
             <li><a href="/news/">Noticias</a></li> 
             <li><a href="/links/">Links</a></li> 
             <li><a href="/posts/">Artículos</a></li> 
             <li><a href="/about/">Miembros</a></li> 
           </ul>
+          {% endblock %}
           <ul class="nav secondary-nav">
           	{%if login_url %}
             <li><a href="{{login_url}}">Entrar</a></li>
@@ -77,7 +79,11 @@
 	    </div> 
 	</div>
     <footer class="footer"> 
-        <p>&copy; Ataxic 2011</p> 
+    	<div class="row">
+	    	<div class="span3 offset7">
+	        	<h4>&copy; Ataxic 2011</h4> 
+	        </div>
+        </div>
     </footer> 
 </body>
 <script type="text/javascript" src="/js/mootools-core-1.3.1-full-compat.js"></script>
@@ -87,9 +93,7 @@
 {% block js_requires%}{%endblock js_requires%}
 {% block js_activities%}{%endblock js_activities%}
 <script type="text/javascript"> 
-	$(document).ready(function() {
-      $('#topbar').dropdown()
-   	});
+	
 	
 </script> 
 </html>	

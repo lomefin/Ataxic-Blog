@@ -150,6 +150,10 @@ def main():
   										('/posts/_new',NewPostHandler),
   										('/posts/([a-zA-Z\-0-9]*)',ViewPostHandler),
 										('/posts/([a-zA-Z\-0-9]*)/edit',EditPostHandler),
+										('/articles/', PostHandler),
+  										('/articles/_new',NewPostHandler),
+  										('/articles/([a-zA-Z\-0-9]*)',ViewPostHandler),
+										('/articles/([a-zA-Z\-0-9]*)/edit',EditPostHandler),
 										('.*',lib.errors.NotFoundHandler)],
                                        debug=True)
   util.run_wsgi_app(application)

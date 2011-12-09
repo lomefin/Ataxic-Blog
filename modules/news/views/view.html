@@ -1,0 +1,72 @@
+{% extends "../../../templates/main_template.html" %}
+{% block content %}
+<div class="row">
+  <div class="span10">
+    <div class="page-header">
+      <h1>{{post.title}}</h1>
+    </div>
+  </div>
+  {% if logged_user.is_administrator %}
+  <div class="span2 last"><a href="/posts/{{post.slug}}/edit" class="btn large primary">Editar</a></div>
+  {% endif %}
+</div>
+<div class="row">
+  <div class="span5 last">
+    <small>Publicado el {{post.date_created|date:"d/m/Y"}} por {{post.creator.name}}</small>
+  </div>
+</div>
+<div class="row">
+  
+  <div class="textContent span12">
+    <article>
+      {{markdown_html}}
+    </article>
+  </div>
+  
+</div>
+<div class="row">
+  <div class="page-header">
+    <h2>Comentarios</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="span8">
+{% for reply in post.replies %}
+<p>De: {{reply.replier_name}}</p>
+<p>{{reply.reply}}</p>
+{% endfor %}
+  </div>
+</div>
+<div clas="row">
+  <div class="span8 last">
+    <form action="/replies/add" method="post">
+    <fieldset><legend>Agregar Comentario</legend>
+      <input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
+      <input type="hidden" name="sent_from" value="{{from}}" />
+      <div class="clearfix">
+        <label for="replier_name">Nombre:</label>
+        <div class="input">
+          <input type="text" name="replier_name" />
+        </div>
+      </div>
+      <div class="clearfix">
+        <label for="reply">Respuesta (no más de 500 caracteres):</label>
+        <div class="input">
+          <textarea name="reply" class="xlarge" rows="3" ></textarea>
+        </div>
+      </div>
+      <div class="actions">
+        <input type="submit" value="Responder" class="btn primary">
+        <button type="reset" class="btn">Cancelar</button>
+      </div>
+    </fieldset>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="span8">
+    <a href="/posts/">Volver a los artículos</a>
+  </div>
+</div>
+
+{% endblock content %}

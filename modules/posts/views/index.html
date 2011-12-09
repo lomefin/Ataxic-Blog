@@ -38,9 +38,9 @@
 	<div class="span16" id="messageList">
 		{% for article in articles %}
 			{% if article.is_active or logged_user.is_administrator%}
-			<h3><a href="/posts/{{message.slug}}">{{article.title}}</a></h3>
+			<h3><a href="/posts/{{article.slug}}">{{article.title}}</a></h3>
 			<div class="textContent">{{article.markdown_html|truncatewords_html:120|removetags:"a iframe pre"}}</div>
-			<div><a href="/posts/{{message.slug}}">Seguir leyendo</a></div>
+			<div><a href="/posts/{{article.slug}}">Seguir leyendo</a></div>
 			<div class="bottomSeparator"></div>	
 			{% endif %}
 		{% endfor %}
