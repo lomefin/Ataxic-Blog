@@ -25,42 +25,13 @@
   
 </div>
 <div class="row">
-  <div class="page-header">
+  <div class="span8">
     <h2>Comentarios</h2>
   </div>
 </div>
 <div class="row">
-  <div class="span8">
-{% for reply in post.replies %}
-<p>De: {{reply.replier_name}}</p>
-<p>{{reply.reply}}</p>
-{% endfor %}
-  </div>
-</div>
-<div clas="row">
-  <div class="span8 last">
-    <form action="/replies/add" method="post">
-    <fieldset><legend>Agregar Comentario</legend>
-      <input type="hidden" name="posted_element_id" value ="{{post.key.id}}" />
-      <input type="hidden" name="sent_from" value="{{from}}" />
-      <div class="clearfix">
-        <label for="replier_name">Nombre:</label>
-        <div class="input">
-          <input type="text" name="replier_name" />
-        </div>
-      </div>
-      <div class="clearfix">
-        <label for="reply">Respuesta (no más de 500 caracteres):</label>
-        <div class="input">
-          <textarea name="reply" class="xlarge" rows="3" ></textarea>
-        </div>
-      </div>
-      <div class="actions">
-        <input type="submit" value="Responder" class="btn primary">
-        <button type="reset" class="btn">Cancelar</button>
-      </div>
-    </fieldset>
-    </form>
+  <div class="span12">
+    <div class="fb-comments" data-href="http://www.ataxic.org/posts/{{post.slug}}" data-num-posts="2" data-width="940"></div>
   </div>
 </div>
 <div class="row">
